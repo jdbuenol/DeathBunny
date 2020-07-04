@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://skelbunny/skel-bunny.png" type="Texture" id=1]
 [ext_resource path="res://skelbunny/SkelBunny.gd" type="Script" id=2]
@@ -16,19 +16,12 @@ animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ) ],
 "loop": true,
 "name": "Idle",
-"speed": 7.0
+"speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 6.83362, 8.0299 )
-
-[node name="SkelBunny" type="KinematicBody2D"]
+[node name="SkelBunny" type="AnimatedSprite"]
 scale = Vector2( 8, 8 )
-script = ExtResource( 2 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
 animation = "Idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+frame = 1
+script = ExtResource( 2 )
