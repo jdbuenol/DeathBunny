@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://map/map.gd" type="Script" id=1]
+
+[node name="map" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 602.0
+color = Color( 0, 0, 0, 0.521569 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D0" type="Position2D" parent="."]
+position = Vector2( 152.632, 285.579 )
+
+[node name="Position2D1" type="Position2D" parent="."]
+position = Vector2( 222.632, 285.579 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 292.632, 285.579 )
+
+[node name="Position2D3" type="Position2D" parent="."]
+position = Vector2( 362.632, 285.579 )
+
+[node name="Position2D4" type="Position2D" parent="."]
+position = Vector2( 432.632, 285.579 )
+
+[node name="Position2D5" type="Position2D" parent="."]
+position = Vector2( 502.632, 285.579 )
+
+[node name="Position2D6" type="Position2D" parent="."]
+position = Vector2( 572.632, 285.579 )
+
+[node name="Position2D7" type="Position2D" parent="."]
+position = Vector2( 642.632, 285.579 )
+
+[node name="Position2D8" type="Position2D" parent="."]
+position = Vector2( 712.632, 285.579 )
+
+[node name="Position2D9" type="Position2D" parent="."]
+position = Vector2( 782.632, 285.579 )
+
+[node name="Position2D10" type="Position2D" parent="."]
+position = Vector2( 852.632, 285.579 )

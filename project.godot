@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Death Bunny"
-run/main_scene="res://testing/TestingLevel.tscn"
+run/main_scene="res://MainTitle/MainTitle.tscn"
 config/icon="res://icon.png"
 
 [importer_defaults]

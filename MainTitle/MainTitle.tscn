@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://MainTitle/MainTitle.gd" type="Script" id=1]
+
+[node name="MainTitle" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1026.0
+margin_bottom = 601.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 226.272
+margin_top = 66.482
+margin_right = 304.272
+margin_bottom = 80.482
+rect_scale = Vector2( 7, 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DeathBunny"
+
+[node name="Start" type="Button" parent="."]
+margin_left = 393.06
+margin_top = 236.769
+margin_right = 565.06
+margin_bottom = 273.769
+text = "START"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 390.669
+margin_top = 317.499
+margin_right = 567.669
+margin_bottom = 355.499
+text = "EXIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
