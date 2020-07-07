@@ -1,6 +1,6 @@
 extends TextureButton
 
-const DESCRIPTION : String = "Deal 2 of damage to the nearest enemy"
+const DESCRIPTION : String = "Deal 5 of damage to the enemy in tile2"
 
 #This executes at the start of the scene
 func _ready():
@@ -21,5 +21,5 @@ func hovered() -> bool:
 			return true
 	return false
 
-func _on_BasicAttack_pressed():
-	get_parent().add_to_deck("basicAttack")
+func _on_NearAttackReward_pressed():
+	get_parent().add_to_deck("nearAttack")

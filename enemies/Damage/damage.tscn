@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://enemies/Damage/Damage-1.png.png" type="Texture" id=1]
+[ext_resource path="res://enemies/Damage/damage.gd" type="Script" id=2]
+
+[node name="damage" type="Sprite"]
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -2.73742
+margin_top = -3.0
+margin_right = 5.26258
+margin_bottom = 11.0
+rect_scale = Vector2( 0.4, 0.4 )
+text = "3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

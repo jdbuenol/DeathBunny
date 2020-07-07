@@ -1,12 +1,19 @@
 extends Control
 
-const BASIC_ATTACK_REWARD : PackedScene = preload("res://cards/AttackCards/basicAttack/BasicAttack_Reward.tscn")
-const BOW_ARROW_REWARD : PackedScene = preload("res://cards/AttackCards/bowArrow/BowArrow_Reward.tscn")
-const SPEAR_ATTACK_REWARD : PackedScene = preload("res://cards/AttackCards/spearAttack/SpearAttack_Reward.tscn")
+const BASIC_ATTACK : PackedScene = preload("res://cards/AttackCards/basicAttack/BasicAttack_Reward.tscn")
+const BOW_ARROW : PackedScene = preload("res://cards/AttackCards/bowArrow/BowArrow_Reward.tscn")
+const SPEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/spearAttack/SpearAttack_Reward.tscn")
+const LONG_SWORD : PackedScene = preload("res://cards/AttackCards/longSword/longSword_Reward.tscn")
+const BOMB_ATTACK : PackedScene = preload("res://cards/AttackCards/bombAttack/BombAttack_Reward.tscn")
+const BONE_ATTACK : PackedScene = preload("res://cards/AttackCards/boneAttack/BoneAttack_Reward.tscn")
+const NEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/nearAttack/NearAttack_Reward.tscn")
+const LONG_RANGE_ATTACK : PackedScene = preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack_Reward.tscn")
+const SACRIFICE_DAGGER : PackedScene = preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger_Reward.tscn")
 
 var type_of_rewards : String = "common"
 
-var common_cards : Array = [BASIC_ATTACK_REWARD, BOW_ARROW_REWARD, SPEAR_ATTACK_REWARD]
+var common_cards : Array = [BASIC_ATTACK, BOW_ARROW, SPEAR_ATTACK, LONG_SWORD, BOMB_ATTACK, BONE_ATTACK, NEAR_ATTACK,
+LONG_RANGE_ATTACK, SACRIFICE_DAGGER]
 var select_cards : Array = []
 
 # This executes at the start of every frame

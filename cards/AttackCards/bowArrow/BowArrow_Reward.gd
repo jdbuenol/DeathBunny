@@ -1,6 +1,6 @@
 extends TextureButton
 
-const DESCRIPTION : String = "Make 3 of damage to the nearest enemy.\n6 if it is flying"
+const DESCRIPTION : String = "Deal 3 of damage to the nearest enemy.\n6 if it is flying"
 
 #This executes at the start of the scene
 func _ready():

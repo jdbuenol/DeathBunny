@@ -11,7 +11,13 @@ const MARK_IN_MAP : String = "E"
 var all_cards : Dictionary = {
 	"basicAttack" : preload("res://cards/AttackCards/basicAttack/BasicAttack.tscn"),
 	"bowArrow" : preload("res://cards/AttackCards/bowArrow/BowArrow.tscn"),
-	"spearAttack" : preload("res://cards/AttackCards/spearAttack/SpearAttack.tscn")
+	"spearAttack" : preload("res://cards/AttackCards/spearAttack/SpearAttack.tscn"),
+	"longSword" : preload("res://cards/AttackCards/longSword/longSword.tscn"),
+	"bombAttack" : preload("res://cards/AttackCards/bombAttack/BombAttack.tscn"),
+	"boneAttack" : preload("res://cards/AttackCards/boneAttack/BoneAttack.tscn"),
+	"nearAttack" : preload("res://cards/AttackCards/nearAttack/NearAttack.tscn"),
+	"longRangeAttack" : preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack.tscn"),
+	"sacrificeDagger" : preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger.tscn")
 }
 
 var battle_deck : Array = []
@@ -118,6 +124,17 @@ func second_nearest_enemy() -> AnimatedSprite:
 			nearest_pos = enemy.current_pos
 	return second_enemy
 
+#This function return the farthest enemy
+func farthest_enemy() -> AnimatedSprite:
+	var farthest_pos : int = 1
+# warning-ignore:unused_variable
+	var farthest_enemy : AnimatedSprite
+	for enemy in enemies:
+		if enemy.current_pos > farthest_pos:
+			farthest_enemy = enemy
+			farthest_pos = enemy.current_pos
+	return farthest_enemy()
+
 #This function executes when you hover an attack card
 #It will shadow the tiles affected by said card
 func affect_tiles(type : String):
@@ -136,6 +153,15 @@ func affect_tiles(type : String):
 			var second_pos : int = second_nearest_enemy().current_pos
 			for x in range(max_pos + 1, second_pos + 1):
 				get_node("tile" + String(x)).modulate = Color(1, 0.53, 0.53, 1)
+	elif type == "all":
+		for x in range(2, 10):
+			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
+	elif type == "near":
+		get_node("tile2").modulate = Color(1, 0.265625, 0.265625, 1)
+	elif type == "farth":
+		var min_pos : int = farthest_enemy().current_pos
+		for x in range(min_pos, 10):
+			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
 
 #This executes at the start of every frame
 func _physics_process(_delta):
@@ -157,27 +183,60 @@ func attack(type : String, damage : int, energy : int):
 	#If the target is the nearest enemy
 	if type == "direct":
 		var enemy : AnimatedSprite = get_nearest_enemy()
-		enemy.hp -= damage
+		enemy.take_damage(damage)
 		if enemy.hp <= 0:
 			enemies.erase(enemy)
 			enemy.death()
 	#If the target is the nearest enemy(X2 damage if it's flying')
 	elif type == "air":
 		var enemy : AnimatedSprite = get_nearest_enemy()
-		enemy.hp -= damage * 2 if enemy.flying else damage
+		enemy.take_damage(damage * 2 if enemy.flying else damage)
 		if enemy.hp <= 0:
 			enemies.erase(enemy)
 			enemy.death()
 	#If the attack is piercing
 	elif type == "piercing":
 		var enemy : AnimatedSprite = get_nearest_enemy()
-		enemy.hp -= damage
+		enemy.take_damage(damage)
 		if enemies.size() >= 2:
 			var second_enemy : AnimatedSprite = second_nearest_enemy()
-			second_enemy.hp -= int(damage / 2.0)
+			second_enemy.take_damage(int(damage / 2.0))
 			if second_enemy.hp <= 0:
 				enemies.erase(second_enemy)
 				second_enemy.death()
+		if enemy.hp <= 0:
+			enemies.erase(enemy)
+			enemy.death()
+	#If the attack has a lasting effect
+	elif type == "lasting":
+		var enemy : AnimatedSprite = get_nearest_enemy()
+		enemy.take_damage(damage)
+		if enemy.hp <= 0:
+			enemies.erase(enemy)
+			enemy.death()
+			if enemies.size() >= 1:
+				attack("direct", 3, 0)
+				return
+	#If the target are all the enemies
+	elif type == "all":
+		for enemy in enemies:
+			enemy.take_damage(damage)
+			if enemy.hp <= 0:
+				enemies.erase(enemy)
+				enemy.death()
+	#If the target is tile 1
+	elif type == "near":
+		for enemy in enemies:
+			if enemy.current_pos == 2:
+				enemy.take_damage(damage)
+				if enemy.hp <= 0:
+					enemies.erase(enemy)
+					enemy.death()
+				break
+	#If the target is the farthest enemy
+	elif type == "farth":
+		var enemy : AnimatedSprite = farthest_enemy()
+		enemy.take_damage(damage)
 		if enemy.hp <= 0:
 			enemies.erase(enemy)
 			enemy.death()
@@ -204,15 +263,14 @@ func open_map():
 #This executes when a enemy hurt SkelBunny
 func hurt_skelbunny(damage : int):
 	if !battle_ended:
-		$SkelBunny.hp -= damage
-		$"Healt_points-1png/Label".text = String($SkelBunny.hp)
-		if $SkelBunny.hp <= 0:
-			$SkelBunny.death()
-			game_over()
-			battle_ended = true
+		$SkelBunny.take_damage(damage)
 
 #This executes when skelbunny dies
 func game_over():
+	battle_ended = true
+	for card in battle_hand:
+		card.queue_free()
+		$end_turn.queue_free()
 	print("You lose, try again")
 
 #This is to reposition the enemy sprite

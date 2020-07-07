@@ -23,6 +23,15 @@ rect_scale = Vector2( 7, 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "DeathBunny"
 
+[node name="Label2" type="Label" parent="."]
+margin_left = 306.75
+margin_top = 159.79
+margin_right = 432.75
+margin_bottom = 173.79
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DEFEAT THE DEATH!"
+
 [node name="Start" type="Button" parent="."]
 margin_left = 393.06
 margin_top = 236.769
