@@ -50,3 +50,14 @@ position = Vector2( 782.632, 285.579 )
 
 [node name="Position2D10" type="Position2D" parent="."]
 position = Vector2( 852.632, 285.579 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 276.108
+margin_top = 81.5097
+margin_right = 395.108
+margin_bottom = 95.5097
+rect_scale = Vector2( 4, 4 )
+text = "SELECT NEXT LEVEL"
+__meta__ = {
+"_edit_use_anchors_": false
+}

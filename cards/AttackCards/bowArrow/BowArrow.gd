@@ -2,7 +2,7 @@ extends TextureButton
 
 const EFFECT_ON_TILES : String = "direct"
 const TYPE : String = "attack"
-const DAMAGE : int = 2
+const DAMAGE : int = 3
 const ENERGY : int = 1
 
 #This executes at the start of the scene
@@ -16,7 +16,7 @@ func _physics_process(_delta):
 	else:
 		$ColorRect.visible = true
 
-#This says if you are hovering the card or not
+#This says if you are hovering the card or nor
 func hovered() -> bool:
 	var mouse_pos : Vector2 = get_global_mouse_position()
 	if mouse_pos.x > rect_global_position.x and mouse_pos.x < rect_global_position.x + 96:
@@ -24,11 +24,11 @@ func hovered() -> bool:
 			return true
 	return false
 
-#This executes when the player select the card
-func _on_BasicAttack_pressed():
+#This executes when the player press the card
+func _on_BowArrow_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:
-		get_parent().attack(EFFECT_ON_TILES, DAMAGE, ENERGY)
+		get_parent().attack("air", DAMAGE, ENERGY)
 		get_parent().battle_hand.erase(self)
 		queue_free()

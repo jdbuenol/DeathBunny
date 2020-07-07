@@ -1,9 +1,6 @@
 extends TextureButton
 
-const EFFECT_ON_TILES : String = "direct"
-const TYPE : String = "attack"
-const DAMAGE : int = 2
-const ENERGY : int = 1
+const DESCRIPTION : String = "Make 2 of damage to the nearest enemy"
 
 #This executes at the start of the scene
 func _ready():
@@ -24,11 +21,5 @@ func hovered() -> bool:
 			return true
 	return false
 
-#This executes when the player select the card
 func _on_BasicAttack_pressed():
-	if get_parent().get_node("SkelBunny").energy < ENERGY:
-		pass
-	else:
-		get_parent().attack(EFFECT_ON_TILES, DAMAGE, ENERGY)
-		get_parent().battle_hand.erase(self)
-		queue_free()
+	get_parent().add_to_deck("basicAttack")

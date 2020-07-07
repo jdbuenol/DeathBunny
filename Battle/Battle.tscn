@@ -64,8 +64,8 @@ frame = 0
 position = Vector2( 14.9641, 205.416 )
 
 [node name="EnergyOrb" type="Sprite" parent="."]
-position = Vector2( 946.049, 80.7319 )
-scale = Vector2( 10, 10 )
+position = Vector2( 961.212, 66.7357 )
+scale = Vector2( 8, 8 )
 texture = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="EnergyOrb"]
@@ -82,8 +82,8 @@ __meta__ = {
 }
 
 [node name="Healt_points-1png" type="Sprite" parent="."]
-position = Vector2( 84.6991, 80.7319 )
-scale = Vector2( 10, 10 )
+position = Vector2( 64.8712, 66.7357 )
+scale = Vector2( 8, 8 )
 texture = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="Healt_points-1png"]
@@ -101,4 +101,15 @@ __meta__ = {
 
 [node name="enemyDelay" type="Timer" parent="."]
 one_shot = true
+
+[node name="end_turn" type="Button" parent="."]
+margin_left = 367.867
+margin_top = 17.7285
+margin_right = 654.867
+margin_bottom = 98.7285
+text = "END TURN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="enemyDelay" to="." method="_on_enemyDelay_timeout"]
+[connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]

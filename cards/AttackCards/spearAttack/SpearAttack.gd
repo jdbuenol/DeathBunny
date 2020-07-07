@@ -1,8 +1,8 @@
 extends TextureButton
 
-const EFFECT_ON_TILES : String = "direct"
+const EFFECT_ON_TILES : String = "piercing"
 const TYPE : String = "attack"
-const DAMAGE : int = 2
+const DAMAGE : int = 3
 const ENERGY : int = 1
 
 #This executes at the start of the scene
@@ -24,8 +24,7 @@ func hovered() -> bool:
 			return true
 	return false
 
-#This executes when the player select the card
-func _on_BasicAttack_pressed():
+func _on_SpearAttack_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:

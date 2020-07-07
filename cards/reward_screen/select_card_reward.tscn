@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://cards/reward_screen/select_card_reward.gd" type="Script" id=1]
+
+[node name="select_card_reward" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1026.0
+margin_bottom = 601.0
+color = Color( 0, 0, 0, 0.521569 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 304.0
+margin_top = 69.0
+margin_right = 406.0
+margin_bottom = 83.0
+rect_scale = Vector2( 4, 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "SELECT REWARD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D1" type="Position2D" parent="."]
+position = Vector2( 493, 280 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 261, 280 )
+
+[node name="Position2D3" type="Position2D" parent="."]
+position = Vector2( 725, 280 )
+
+[node name="description" type="Label" parent="."]
+margin_left = 154.0
+margin_top = 415.0
+margin_right = 382.0
+margin_bottom = 470.0
+rect_scale = Vector2( 3, 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

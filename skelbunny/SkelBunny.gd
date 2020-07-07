@@ -8,5 +8,6 @@ var max_energy : int = 1
 func _ready():
 	play("Idle")
 
+#This executes when you die
 func death():
 	queue_free()
