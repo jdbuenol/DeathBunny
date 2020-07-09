@@ -12,7 +12,7 @@ var desire_pos : float = 0
 #This executes at the start of the scene
 func _ready():
 	randomize()
-	hp = int(rand_range(4, 9))
+	hp = int(rand_range(2, 5))
 	$enemiesHeart/Label.text = String(hp)
 	current_pos = initial_pos
 	desire_pos = 77.352 + 110 * (current_pos - 1)
@@ -20,7 +20,7 @@ func _ready():
 #This executes every frame
 func _physics_process(_delta):
 	if moving:
-		position.x -= 1.5
+		position.x -= 3
 		if position.x <= desire_pos:
 			moving = false
 
@@ -31,13 +31,17 @@ func death():
 #This executes when is enemy turn
 func make_a_move():
 	if current_pos == 2:
-		get_parent().hurt_skelbunny(2)
+		get_parent().hurt_skelbunny(1)
 		current_pos = 9
 		get_parent().reposition_enemy(self)
 		desire_pos = 77.352 + 110 * (current_pos - 1)
-	else:
+	elif current_pos == 3:
 		current_pos -= 1
 		desire_pos -= 110
+		moving = true
+	else:
+		current_pos -= 2
+		desire_pos -= 220
 		moving = true
 
 #This executes when the enemy take damage

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://enemies/skel-enemie/skel-enemie-1.png(1).png" type="Texture" id=1]
-[ext_resource path="res://enemies/skel-enemie/SkelEnemie.gd" type="Script" id=2]
+[ext_resource path="res://enemies/bunbun/bunBun-1.png.png" type="Texture" id=1]
+[ext_resource path="res://enemies/bunbun/BunBun.gd" type="Script" id=2]
 [ext_resource path="res://enemies/enemiesHeart.tscn" type="PackedScene" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -16,14 +16,12 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="SkelEnemie" type="AnimatedSprite"]
+[node name="BunBun" type="AnimatedSprite"]
 scale = Vector2( 8, 8 )
 frames = SubResource( 2 )
 animation = "Idle"
-flip_h = true
 script = ExtResource( 2 )
 
 [node name="enemiesHeart" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 14 )
 scale = Vector2( 0.5, 0.5 )
-frame = 3

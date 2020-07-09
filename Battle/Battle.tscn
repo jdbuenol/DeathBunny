@@ -16,6 +16,14 @@ position = Vector2( 514.363, 299.758 )
 scale = Vector2( 31.9211, 18.5208 )
 texture = ExtResource( 7 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 143.0
+color = Color( 0, 0, 0, 0.533333 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="tile1" type="Sprite" parent="."]
 position = Vector2( 77.4737, 539.644 )
 scale = Vector2( 10, 8 )

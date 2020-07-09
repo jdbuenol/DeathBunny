@@ -1,11 +1,22 @@
 extends AnimatedSprite
 
-var energy : int = 1
-var hp : int = 5
-var max_energy : int = 1
+var energy : int
+var hp : int
+var max_hp : int
+var max_energy : int
 
 #This executes at the start of the scene
 func _ready():
+	var hero : File = File.new()
+	if not hero.file_exists("user://hero.save"):
+		return
+# warning-ignore:return_value_discarded
+	hero.open("user://hero.save", File.READ)
+	max_hp = int(hero.get_line().split(" ")[1])
+	hp = int(hero.get_line().split(" ")[1])
+	max_energy = int(hero.get_line().split(" ")[1])
+	energy = max_energy
+	hero.close()
 	play("Idle")
 
 #This executes when you die

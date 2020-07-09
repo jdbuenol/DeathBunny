@@ -9,11 +9,12 @@ const BONE_ATTACK : PackedScene = preload("res://cards/AttackCards/boneAttack/Bo
 const NEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/nearAttack/NearAttack_Reward.tscn")
 const LONG_RANGE_ATTACK : PackedScene = preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack_Reward.tscn")
 const SACRIFICE_DAGGER : PackedScene = preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger_Reward.tscn")
+const SNIPE_ATTACK : PackedScene = preload("res://cards/AttackCards/snipeAttack/SnipeAttack_Reward.tscn")
 
 var type_of_rewards : String = "common"
 
 var common_cards : Array = [BASIC_ATTACK, BOW_ARROW, SPEAR_ATTACK, LONG_SWORD, BOMB_ATTACK, BONE_ATTACK, NEAR_ATTACK,
-LONG_RANGE_ATTACK, SACRIFICE_DAGGER]
+LONG_RANGE_ATTACK, SACRIFICE_DAGGER, SNIPE_ATTACK]
 var select_cards : Array = []
 
 # This executes at the start of every frame

@@ -5,14 +5,14 @@ const DAMAGE : PackedScene = preload("res://enemies/Damage/damage.tscn")
 var hp : int
 var initial_pos : int
 var current_pos : int
-var flying : bool = false
+var flying : bool = true
 var moving : bool = false
 var desire_pos : float = 0
 
 #This executes at the start of the scene
 func _ready():
 	randomize()
-	hp = int(rand_range(4, 9))
+	hp = int(rand_range(8, 18))
 	$enemiesHeart/Label.text = String(hp)
 	current_pos = initial_pos
 	desire_pos = 77.352 + 110 * (current_pos - 1)

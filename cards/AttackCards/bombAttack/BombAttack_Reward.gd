@@ -5,6 +5,7 @@ const DESCRIPTION : String = "Deal 3 of damage to ALL the enemies"
 #This executes at the start of the scene
 func _ready():
 	$ColorRect.visible = true
+	$Sprite/Label.text = "2"
 
 #This executes every frame
 func _physics_process(_delta):

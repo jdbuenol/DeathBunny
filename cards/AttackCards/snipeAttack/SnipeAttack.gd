@@ -1,14 +1,13 @@
 extends TextureButton
 
-const EFFECT_ON_TILES : String = "direct"
+const EFFECT_ON_TILES : String = "snipe"
 const TYPE : String = "attack"
-const DAMAGE : int = 1
-const ENERGY : int = 0
+const DAMAGE : int = 9
+const ENERGY : int = 1
 
 #This executes at the start of the scene
 func _ready():
 	$ColorRect.visible = true
-	$Sprite/Label.text = "0"
 
 #This executes every frame
 func _physics_process(_delta):
@@ -26,7 +25,7 @@ func hovered() -> bool:
 	return false
 
 #This executes when the player select the card
-func _on_BoneAttack_pressed():
+func _on_BasicAttack_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:

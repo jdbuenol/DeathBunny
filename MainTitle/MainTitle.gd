@@ -23,7 +23,15 @@ func _on_Start_pressed():
 	map.open("user://map.save", File.WRITE)
 	map.store_line("S")
 	map.close()
-# warning-ignore:return_value_discarded
+	#File for saving skelBunny progress
+	var hero : File = File.new()
+	hero.open("user://hero.save", File.WRITE)
+	hero.store_line("max_hp 5")
+	hero.store_line("current_hp 5")
+	hero.store_line("max_energy 1")
+	hero.close()
+	
+	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://Battle/Battle.tscn")
 
 #Exit to Desktop

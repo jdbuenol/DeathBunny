@@ -3,6 +3,12 @@ extends Node2D
 var current_level : int = 0
 
 const SKEL_ENEMIE : PackedScene = preload("res://enemies/skel-enemie/SkelEnemie.tscn")
+const BUN_BUN : PackedScene = preload("res://enemies/bunbun/BunBun.tscn")
+const FLYING_SKULL : PackedScene = preload("res://enemies/flying-skull/FlyingSkull.tscn")
+const DEATH_CANNON : PackedScene = preload("res://enemies/death-cannon/DeathCannon.tscn")
+
+var all_enemies : Array = [SKEL_ENEMIE, BUN_BUN, FLYING_SKULL]
+
 const MAP : PackedScene = preload("res://map/map.tscn")
 const REWARD_SCREEN : PackedScene = preload("res://cards/reward_screen/select_card_reward.tscn")
 
@@ -17,7 +23,8 @@ var all_cards : Dictionary = {
 	"boneAttack" : preload("res://cards/AttackCards/boneAttack/BoneAttack.tscn"),
 	"nearAttack" : preload("res://cards/AttackCards/nearAttack/NearAttack.tscn"),
 	"longRangeAttack" : preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack.tscn"),
-	"sacrificeDagger" : preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger.tscn")
+	"sacrificeDagger" : preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger.tscn"),
+	"snipeAttack" : preload("res://cards/AttackCards/snipeAttack/SnipeAttack.tscn")
 }
 
 var battle_deck : Array = []
@@ -31,14 +38,20 @@ func _ready():
 	#Checking current level
 	update_current_level()
 	
+	#Updating labels
+	$"Healt_points-1png/Label".text = String($SkelBunny.hp)
+	$EnergyOrb/Label.text = String($SkelBunny.max_energy)
+	
 	#Adding enemies
 	randomize()
 	if current_level <= 10:
 		for x in range(6, 10):
 			if rand_range(0, 1) > 0.5:
-				var skel_enemie : AnimatedSprite = SKEL_ENEMIE.instance()
-				enemies.append(skel_enemie)
-				skel_enemie.initial_pos = x
+				if x == 9:
+					all_enemies.append(DEATH_CANNON)
+				var enemy : AnimatedSprite = all_enemies[int(rand_range(0, all_enemies.size()))].instance() 
+				enemies.append(enemy)
+				enemy.initial_pos = x
 		if enemies.size() == 0:
 			enemies.append(SKEL_ENEMIE.instance())
 			enemies[0].initial_pos = 9
@@ -46,6 +59,8 @@ func _ready():
 			add_child(enemy)
 			enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
 			enemy.global_position.y = 446.848
+			if "Flying" in enemy.name:
+				enemy.global_position.y -= 100
 
 	#Loading deck
 	reset_deck()
@@ -133,7 +148,7 @@ func farthest_enemy() -> AnimatedSprite:
 		if enemy.current_pos > farthest_pos:
 			farthest_enemy = enemy
 			farthest_pos = enemy.current_pos
-	return farthest_enemy()
+	return farthest_enemy
 
 #This function executes when you hover an attack card
 #It will shadow the tiles affected by said card
@@ -162,6 +177,8 @@ func affect_tiles(type : String):
 		var min_pos : int = farthest_enemy().current_pos
 		for x in range(min_pos, 10):
 			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
+	elif type == "snipe":
+		$tile9.modulate = Color(1, 0.265625, 0.265625, 1)
 
 #This executes at the start of every frame
 func _physics_process(_delta):
@@ -240,6 +257,14 @@ func attack(type : String, damage : int, energy : int):
 		if enemy.hp <= 0:
 			enemies.erase(enemy)
 			enemy.death()
+	elif type == "snipe":
+		for enemy in enemies:
+			if enemy.current_pos == 9:
+				enemy.take_damage(damage)
+				if enemy.hp <= 0:
+					enemies.erase(enemy)
+					enemy.death()
+				break
 	if enemies.size() == 0:
 		battle_ended = true
 		end_fight()
@@ -249,11 +274,23 @@ func end_fight():
 	print("You did it, you won")
 	for card in battle_hand:
 		card.queue_free()
+	
 	#Update the current level file
 	var file_of_current_level : File = File.new()
 # warning-ignore:return_value_discarded
 	file_of_current_level.open("user://current_level.save", File.WRITE)
 	file_of_current_level.store_line(String(current_level + 1))
+	file_of_current_level.close()
+	
+	#Update the hero status
+	var file_of_hero : File = File.new()
+# warning-ignore:return_value_discarded
+	file_of_hero.open("user://hero.save", File.WRITE)
+	file_of_hero.store_line("max_hp " + String($SkelBunny.max_hp))
+	file_of_hero.store_line("current_hp " + String($SkelBunny.hp))
+	file_of_hero.store_line("max_energy " + String($SkelBunny.max_energy))
+	file_of_hero.close()
+
 	add_child(REWARD_SCREEN.instance())
 
 #This open the map to select the next level
