@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://cards/deck.gd" type="Script" id=1]
+
+[node name="deck" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.658824 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="info" type="Label" parent="."]
+margin_left = 661.0
+margin_top = 361.0
+margin_right = 841.0
+margin_bottom = 479.0
+rect_scale = Vector2( 2, 2 )
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cardsPos" type="Position2D" parent="."]
+position = Vector2( 23.6728, 89.7447 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 800, 230 )
+scale = Vector2( 4, 4 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 37.3233
+margin_top = 18.6617
+margin_right = 132.323
+margin_bottom = 59.6617
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

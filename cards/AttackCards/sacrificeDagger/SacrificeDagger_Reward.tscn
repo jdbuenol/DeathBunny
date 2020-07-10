@@ -27,5 +27,4 @@ __meta__ = {
 }
 
 [node name="Sprite" parent="." instance=ExtResource( 3 )]
-position = Vector2( 11.5, -8 )
 [connection signal="pressed" from="." to="." method="_on_SacrificeDaggerReward_pressed"]

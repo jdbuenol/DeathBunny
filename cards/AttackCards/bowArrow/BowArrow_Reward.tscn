@@ -4,7 +4,7 @@
 [ext_resource path="res://cards/AttackCards/bowArrow/BowArrow_Reward.gd" type="Script" id=2]
 [ext_resource path="res://cards/energy.tscn" type="PackedScene" id=3]
 
-[node name="BowArrow_Reward" type="TextureButton"]
+[node name="BowArrowReward" type="TextureButton"]
 margin_right = 24.0
 margin_bottom = 32.0
 rect_scale = Vector2( 4, 4 )
@@ -27,5 +27,4 @@ __meta__ = {
 }
 
 [node name="Sprite" parent="." instance=ExtResource( 3 )]
-position = Vector2( 11.5, -8 )
 [connection signal="pressed" from="." to="." method="_on_BowArrow_Reward_pressed"]

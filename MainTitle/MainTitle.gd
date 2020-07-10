@@ -1,12 +1,19 @@
 extends Control
 
+#All cards
+var all_cards : Array = ["basicAttack", "bowArrow", "spearAttack", "longSword", "bombAttack", "boneAttack", "nearAttack", 
+"longRangeAttack", "sacrificeDagger", "snipeAttack"]
+
 #Start the game
 func _on_Start_pressed():
+	randomize()
 	#File for saving the deck of cards
 	var deck : File = File.new()
 # warning-ignore:return_value_discarded
 	deck.open("user://deck.save", File.WRITE)
-	deck.store_line("basicAttack 5")
+	for _x in range(5):
+		deck.store_line("basicAttack 1")
+		deck.store_line(all_cards[int(rand_range(0, all_cards.size()))] + " 1")
 	deck.close()
 	
 	#File for saving the current level

@@ -6,11 +6,14 @@ const SKEL_ENEMIE : PackedScene = preload("res://enemies/skel-enemie/SkelEnemie.
 const BUN_BUN : PackedScene = preload("res://enemies/bunbun/BunBun.tscn")
 const FLYING_SKULL : PackedScene = preload("res://enemies/flying-skull/FlyingSkull.tscn")
 const DEATH_CANNON : PackedScene = preload("res://enemies/death-cannon/DeathCannon.tscn")
+const LOVERS_HEART : PackedScene = preload("res://enemies/LoversHeart/LoversHeart.tscn")
 
+var all_bosses : Array = [LOVERS_HEART]
 var all_enemies : Array = [SKEL_ENEMIE, BUN_BUN, FLYING_SKULL]
 
 const MAP : PackedScene = preload("res://map/map.tscn")
 const REWARD_SCREEN : PackedScene = preload("res://cards/reward_screen/select_card_reward.tscn")
+const DECK_SCREEN : PackedScene = preload("res://cards/deck.tscn")
 
 const MARK_IN_MAP : String = "E"
 
@@ -43,24 +46,29 @@ func _ready():
 	$EnergyOrb/Label.text = String($SkelBunny.max_energy)
 	
 	#Adding enemies
-	randomize()
-	if current_level <= 10:
-		for x in range(6, 10):
-			if rand_range(0, 1) > 0.5:
-				if x == 9:
-					all_enemies.append(DEATH_CANNON)
-				var enemy : AnimatedSprite = all_enemies[int(rand_range(0, all_enemies.size()))].instance() 
-				enemies.append(enemy)
-				enemy.initial_pos = x
-		if enemies.size() == 0:
-			enemies.append(SKEL_ENEMIE.instance())
-			enemies[0].initial_pos = 9
-		for enemy in enemies:
-			add_child(enemy)
-			enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
-			enemy.global_position.y = 446.848
-			if "Flying" in enemy.name:
-				enemy.global_position.y -= 100
+	if current_level == 10:
+		var enemy : AnimatedSprite = all_bosses[int(rand_range(0, all_bosses.size()))].instance()
+		enemy.initial_pos = 9
+		enemies.append(enemy)
+	else:
+		randomize()
+		if current_level < 10:
+			for x in range(6, 10):
+				if rand_range(0, 1) > 0.5:
+					if x == 9:
+						all_enemies.append(DEATH_CANNON)
+					var enemy : AnimatedSprite = all_enemies[int(rand_range(0, all_enemies.size()))].instance() 
+					enemies.append(enemy)
+					enemy.initial_pos = x
+			if enemies.size() == 0:
+				enemies.append(SKEL_ENEMIE.instance())
+				enemies[0].initial_pos = 9
+	for enemy in enemies:
+		add_child(enemy)
+		enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
+		enemy.global_position.y = 446.848
+		if "Flying" in enemy.name:
+			enemy.global_position.y -= 100
 
 	#Loading deck
 	reset_deck()
@@ -192,6 +200,10 @@ func _physics_process(_delta):
 				break
 		if !tiles_affected:
 			affect_tiles("nothing")
+	if $deckButton.is_hovered():
+		$deckButton.modulate = Color(1, 1, 1, 1)
+	else:
+		$deckButton.modulate = Color(0.8, 0.8, 0.8, 1)
 
 #This executes when the player select an attack card
 func attack(type : String, damage : int, energy : int):
@@ -202,15 +214,15 @@ func attack(type : String, damage : int, energy : int):
 		var enemy : AnimatedSprite = get_nearest_enemy()
 		enemy.take_damage(damage)
 		if enemy.hp <= 0:
-			enemies.erase(enemy)
 			enemy.death()
+			enemies.erase(enemy)
 	#If the target is the nearest enemy(X2 damage if it's flying')
 	elif type == "air":
 		var enemy : AnimatedSprite = get_nearest_enemy()
 		enemy.take_damage(damage * 2 if enemy.flying else damage)
 		if enemy.hp <= 0:
-			enemies.erase(enemy)
 			enemy.death()
+			enemies.erase(enemy)
 	#If the attack is piercing
 	elif type == "piercing":
 		var enemy : AnimatedSprite = get_nearest_enemy()
@@ -222,15 +234,15 @@ func attack(type : String, damage : int, energy : int):
 				enemies.erase(second_enemy)
 				second_enemy.death()
 		if enemy.hp <= 0:
-			enemies.erase(enemy)
 			enemy.death()
+			enemies.erase(enemy)
 	#If the attack has a lasting effect
 	elif type == "lasting":
 		var enemy : AnimatedSprite = get_nearest_enemy()
 		enemy.take_damage(damage)
 		if enemy.hp <= 0:
-			enemies.erase(enemy)
 			enemy.death()
+			enemies.erase(enemy)
 			if enemies.size() >= 1:
 				attack("direct", 3, 0)
 				return
@@ -239,31 +251,31 @@ func attack(type : String, damage : int, energy : int):
 		for enemy in enemies:
 			enemy.take_damage(damage)
 			if enemy.hp <= 0:
-				enemies.erase(enemy)
 				enemy.death()
+				enemies.erase(enemy)
 	#If the target is tile 1
 	elif type == "near":
 		for enemy in enemies:
 			if enemy.current_pos == 2:
 				enemy.take_damage(damage)
 				if enemy.hp <= 0:
-					enemies.erase(enemy)
 					enemy.death()
+					enemies.erase(enemy)
 				break
 	#If the target is the farthest enemy
 	elif type == "farth":
 		var enemy : AnimatedSprite = farthest_enemy()
 		enemy.take_damage(damage)
 		if enemy.hp <= 0:
-			enemies.erase(enemy)
 			enemy.death()
+			enemies.erase(enemy)
 	elif type == "snipe":
 		for enemy in enemies:
 			if enemy.current_pos == 9:
 				enemy.take_damage(damage)
 				if enemy.hp <= 0:
-					enemies.erase(enemy)
 					enemy.death()
+					enemies.erase(enemy)
 				break
 	if enemies.size() == 0:
 		battle_ended = true
@@ -330,3 +342,23 @@ func _on_end_turn_pressed():
 		battle_hand.pop_back().queue_free()
 	enemy_turn = 0
 	$enemyDelay.start()
+
+func add_two_skelenemies(pos : int):
+	var enemy : AnimatedSprite = SKEL_ENEMIE.instance()
+	enemies.append(enemy)
+	enemy.initial_pos = pos
+	add_child(enemy)
+	enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
+	enemy.global_position.y = 446.848
+	enemy = SKEL_ENEMIE.instance()
+	enemies.append(enemy)
+	if pos == 9:
+		enemy.initial_pos = 8
+	else:
+		enemy.initial_pos = pos + 1
+	add_child(enemy)
+	enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
+	enemy.global_position.y = 446.848
+
+func _on_deckButton_pressed():
+	add_child(DECK_SCREEN.instance())
