@@ -2,6 +2,7 @@ extends TextureButton
 
 const DESCRIPTION : String = "Deal 2 of damage to the nearest enemy"
 
+
 #This executes at the start of the scene
 func _ready():
 	$ColorRect.visible = true
@@ -23,3 +24,4 @@ func hovered() -> bool:
 
 func _on_BasicAttack_pressed():
 	get_parent().add_to_deck("basicAttack")
+	queue_free()

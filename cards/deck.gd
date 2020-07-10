@@ -34,6 +34,7 @@ func _ready():
 		else:
 			cards[data[0]] = 1
 	
+	var hor_counter : int = 0
 	#adding cards to the showcase
 	for card in cards:
 		var current_card : TextureButton = all_cards[card].instance()
@@ -46,6 +47,11 @@ func _ready():
 		number.rect_global_position.y += 100
 		number.text = String(cards[card])
 		$cardsPos.global_position.x += 100
+		hor_counter += 1
+		if hor_counter == 6:
+			hor_counter = 0
+			$cardsPos.global_position.x -= 600
+			$cardsPos.global_position.y += 200
 
 #This executes every frame
 func _physics_process(_delta):

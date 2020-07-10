@@ -10,10 +10,12 @@ const LOVERS_HEART : PackedScene = preload("res://enemies/LoversHeart/LoversHear
 
 var all_bosses : Array = [LOVERS_HEART]
 var all_enemies : Array = [SKEL_ENEMIE, BUN_BUN, FLYING_SKULL]
+var max_enemies_num : int = 0
 
 const MAP : PackedScene = preload("res://map/map.tscn")
 const REWARD_SCREEN : PackedScene = preload("res://cards/reward_screen/select_card_reward.tscn")
 const DECK_SCREEN : PackedScene = preload("res://cards/deck.tscn")
+const GAME_OVER_BUTTON : PackedScene = preload("res://Battle/game over/gameOverButton.tscn")
 
 const MARK_IN_MAP : String = "E"
 
@@ -44,6 +46,7 @@ func _ready():
 	#Updating labels
 	$"Healt_points-1png/Label".text = String($SkelBunny.hp)
 	$EnergyOrb/Label.text = String($SkelBunny.max_energy)
+	$"coin-label".text = String($SkelBunny.money)
 	
 	#Adding enemies
 	if current_level == 10:
@@ -69,6 +72,7 @@ func _ready():
 		enemy.global_position.y = 446.848
 		if "Flying" in enemy.name:
 			enemy.global_position.y -= 100
+	max_enemies_num = enemies.size()
 
 	#Loading deck
 	reset_deck()
@@ -173,9 +177,10 @@ func affect_tiles(type : String):
 		for x in range(2, max_pos + 1):
 			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
 		if enemies.size() >= 2:
-			var second_pos : int = second_nearest_enemy().current_pos
-			for x in range(max_pos + 1, second_pos + 1):
-				get_node("tile" + String(x)).modulate = Color(1, 0.53, 0.53, 1)
+			var second_pos : AnimatedSprite = second_nearest_enemy()
+			if second_pos != null:
+				for x in range(max_pos + 1, second_pos.current_pos + 1):
+					get_node("tile" + String(x)).modulate = Color(1, 0.53, 0.53, 1)
 	elif type == "all":
 		for x in range(2, 10):
 			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
@@ -301,6 +306,7 @@ func end_fight():
 	file_of_hero.store_line("max_hp " + String($SkelBunny.max_hp))
 	file_of_hero.store_line("current_hp " + String($SkelBunny.hp))
 	file_of_hero.store_line("max_energy " + String($SkelBunny.max_energy))
+	file_of_hero.store_line("money " + String(int($"coin-label".text) +max_enemies_num * int(rand_range(0, current_level + 1))))
 	file_of_hero.close()
 
 	add_child(REWARD_SCREEN.instance())
@@ -317,6 +323,10 @@ func hurt_skelbunny(damage : int):
 #This executes when skelbunny dies
 func game_over():
 	battle_ended = true
+	$end_turn.queue_free()
+	var game_over_button : Button = GAME_OVER_BUTTON.instance()
+	add_child(game_over_button)
+	game_over_button.rect_global_position = $gameOverPosition.global_position
 	for card in battle_hand:
 		card.queue_free()
 		$end_turn.queue_free()

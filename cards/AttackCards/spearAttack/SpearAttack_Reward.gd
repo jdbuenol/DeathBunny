@@ -23,3 +23,4 @@ func hovered() -> bool:
 
 func _on_SpearAttackReward_pressed():
 	get_parent().add_to_deck("spearAttack")
+	queue_free()

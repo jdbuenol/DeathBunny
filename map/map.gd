@@ -5,11 +5,20 @@ var map : String = ""
 
 const SKULL_ENEMY : PackedScene = preload("res://map/skull_enemy.tscn")
 const START_ARROW : PackedScene = preload("res://map/start_arrow.tscn")
+const SHOP_ICON : PackedScene = preload("res://map/shop_icon.tscn")
+const HEALTH_ICON : PackedScene = preload("res://map/health_icon.tscn")
+const EVENT_ICON : PackedScene = preload("res://map/event_icon.tscn")
+const BOSS_ICON : PackedScene = preload("res://map/boss_icon.tscn")
 
 var symbols : Dictionary = {
 	"S" : START_ARROW,
-	"E" : SKULL_ENEMY
+	"E" : SKULL_ENEMY,
+	"M" : SHOP_ICON,
+	"V" : EVENT_ICON,
+	"H" : HEALTH_ICON
 }
+
+var forks : Array = [SHOP_ICON, HEALTH_ICON, EVENT_ICON]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,14 +53,37 @@ func draw_path():
 #Instance the buttons for the next level
 func draw_next_level():
 	var n : int = current_level + 1
-	var pos_n : int = int(rand_range(0, 3))
-	var button : TextureButton = SKULL_ENEMY.instance()
-	get_parent().add_child(button)
-	if pos_n == 0:
-		button.rect_global_position = get_node("Position2D" + String(n)).global_position
-		button.rect_global_position.y -= 70
-	elif pos_n == 1:
+	if n == 11:
+# warning-ignore:return_value_discarded
+		get_tree().change_scene("res://winscene/victory.tscn")
+	elif n == 10:
+		var button : TextureButton = BOSS_ICON.instance()
+		get_parent().add_child(button)
 		button.rect_global_position = get_node("Position2D" + String(n)).global_position
 	else:
-		button.rect_global_position = get_node("Position2D" + String(n)).global_position
-		button.rect_global_position.y += 70
+		var pos_n : int = int(rand_range(0, 3))
+		var button : TextureButton = SKULL_ENEMY.instance()
+		get_parent().add_child(button)
+		if pos_n == 0:
+			button.rect_global_position = get_node("Position2D" + String(n)).global_position
+			button.rect_global_position.y -= 70
+			draw_forks(button.rect_global_position.y + 70, button.rect_global_position.y + 140)
+		elif pos_n == 1:
+			button.rect_global_position = get_node("Position2D" + String(n)).global_position
+			draw_forks(button.rect_global_position.y - 70, button.rect_global_position.y + 70)
+		else:
+			button.rect_global_position = get_node("Position2D" + String(n)).global_position
+			button.rect_global_position.y += 70
+			draw_forks(button.rect_global_position.y - 70, button.rect_global_position.y - 140)
+
+#Instance the buttons for the next level forks
+func draw_forks(pos1 : float, pos2 : float):
+	var n : int = current_level + 1
+	var button1 : TextureButton = forks[int(rand_range(0, forks.size()))].instance()
+	var button2 : TextureButton = forks[int(rand_range(0, forks.size()))].instance()
+	get_parent().add_child(button1)
+	get_parent().add_child(button2)
+	button1.rect_global_position = get_node("Position2D"+String(n)).global_position
+	button2.rect_global_position = get_node("Position2D"+String(n)).global_position
+	button1.rect_global_position.y = pos1
+	button2.rect_global_position.y = pos2

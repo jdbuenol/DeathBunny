@@ -23,3 +23,4 @@ func hovered() -> bool:
 
 func _on_BasicAttackReward_pressed():
 	get_parent().add_to_deck("snipeAttack")
+	queue_free()

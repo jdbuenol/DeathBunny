@@ -4,6 +4,7 @@ var energy : int
 var hp : int
 var max_hp : int
 var max_energy : int
+var money : int
 
 #This executes at the start of the scene
 func _ready():
@@ -15,6 +16,7 @@ func _ready():
 	max_hp = int(hero.get_line().split(" ")[1])
 	hp = int(hero.get_line().split(" ")[1])
 	max_energy = int(hero.get_line().split(" ")[1])
+	money = int(hero.get_line().split(" ")[1])
 	energy = max_energy
 	hero.close()
 	play("Idle")

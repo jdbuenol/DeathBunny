@@ -23,3 +23,4 @@ func hovered() -> bool:
 
 func _on_NearAttackReward_pressed():
 	get_parent().add_to_deck("nearAttack")
+	queue_free()

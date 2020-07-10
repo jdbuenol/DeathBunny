@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://shop/shopkeeper.png" type="Texture" id=1]
+[ext_resource path="res://shop/shop.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[node name="shop" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1025.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.607843 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 94.3423, 527.283 )
+scale = Vector2( 8, 8 )
+frames = SubResource( 3 )
+
+[node name="continue" type="Button" parent="."]
+margin_left = 877.835
+margin_top = 19.6439
+margin_right = 1004.84
+margin_bottom = 62.6439
+text = "CONTINUE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 197.666, 87.1697 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 203.805, 337.629 )
+[connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]

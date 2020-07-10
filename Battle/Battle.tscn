@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://tiles/basic-tile-1.png.png" type="Texture" id=1]
 [ext_resource path="res://tiles/basic-tiles-2.png.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Battle/Battle.gd" type="Script" id=6]
 [ext_resource path="res://Battle/Background section 1/Backgrounds-1.png.png" type="Texture" id=7]
 [ext_resource path="res://cards/deck_icon-1.png.png" type="Texture" id=8]
+[ext_resource path="res://skelbunny/money/coin-icon-1.png.png" type="Texture" id=9]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 6 )
@@ -141,6 +142,26 @@ texture_focused = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="coin-icon-1png" type="Sprite" parent="."]
+position = Vector2( 318.586, 67.3439 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 9 )
+
+[node name="coin-label" type="Label" parent="."]
+margin_left = 128.0
+margin_top = 48.0
+margin_right = 181.0
+margin_bottom = 63.0
+rect_scale = Vector2( 3, 3 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameOverPosition" type="Position2D" parent="."]
+position = Vector2( 409.001, 267.001 )
 [connection signal="timeout" from="enemyDelay" to="." method="_on_enemyDelay_timeout"]
 [connection signal="pressed" from="end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="deckButton" to="." method="_on_deckButton_pressed"]

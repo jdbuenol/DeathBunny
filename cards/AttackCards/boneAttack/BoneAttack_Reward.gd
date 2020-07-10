@@ -24,3 +24,4 @@ func hovered() -> bool:
 
 func _on_BoneAttackReward_pressed():
 	get_parent().add_to_deck("boneAttack")
+	queue_free()

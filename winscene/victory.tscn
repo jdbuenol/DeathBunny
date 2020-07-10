@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://winscene/victory.gd" type="Script" id=1]
+
+[node name="victory" type="ColorRect"]
+margin_right = 1025.0
+margin_bottom = 609.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = -156.048
+margin_top = 157.46
+margin_right = 102.952
+margin_bottom = 205.46
+rect_scale = Vector2( 5, 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "YOU DID IT! 
+YOU COMPLETED WORLD 1!
+MORE WORLDS SOON!"
+align = 1
+
+[node name="Button" type="Button" parent="."]
+margin_left = 23.1264
+margin_top = 20.4056
+margin_right = 118.126
+margin_bottom = 73.4056
+text = "EXIT"
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

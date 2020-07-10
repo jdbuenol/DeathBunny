@@ -23,3 +23,4 @@ func hovered() -> bool:
 
 func _on_LongRangeAttackReward_pressed():
 	get_parent().add_to_deck("longRangeAttack")
+	queue_free()

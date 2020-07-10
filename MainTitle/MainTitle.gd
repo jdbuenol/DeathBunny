@@ -36,6 +36,7 @@ func _on_Start_pressed():
 	hero.store_line("max_hp 5")
 	hero.store_line("current_hp 5")
 	hero.store_line("max_energy 1")
+	hero.store_line("money 0")
 	hero.close()
 	
 	# warning-ignore:return_value_discarded

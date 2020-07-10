@@ -23,3 +23,4 @@ func hovered() -> bool:
 
 func _on_SacrificeDaggerReward_pressed():
 	get_parent().add_to_deck("sacrificeDagger")
+	queue_free()
