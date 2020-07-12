@@ -85,14 +85,15 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="EnergyOrb"]
-margin_left = -0.575455
-margin_top = -1.6138
-margin_right = 7.42455
-margin_bottom = 29.3862
+margin_left = -9.125
+margin_top = -2.0
+margin_right = 50.875
+margin_bottom = 29.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1
 "
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,14 +104,15 @@ scale = Vector2( 8, 8 )
 texture = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="Healt_points-1png"]
-margin_left = -1.30019
-margin_top = -0.550664
-margin_right = 6.69981
-margin_bottom = 30.4493
+margin_left = -9.75003
+margin_top = -1.5
+margin_right = 58.25
+margin_bottom = 29.5
 rect_scale = Vector2( 0.3, 0.3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "5
 "
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://shop/shopkeeper.png" type="Texture" id=1]
 [ext_resource path="res://shop/shop.gd" type="Script" id=2]
+[ext_resource path="res://skelbunny/money/coin-icon-1.png.png" type="Texture" id=3]
+[ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=4]
+[ext_resource path="res://shop/old man says-1.png.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -51,8 +54,48 @@ __meta__ = {
 }
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 197.666, 87.1697 )
+position = Vector2( 29.665, 150 )
 
 [node name="Position2D2" type="Position2D" parent="."]
-position = Vector2( 203.805, 337.629 )
+position = Vector2( 523.666, 150 )
+
+[node name="SkelBunny" parent="." instance=ExtResource( 4 )]
+position = Vector2( -253.168, 278.519 )
+
+[node name="coin-icon-1png" type="Sprite" parent="."]
+position = Vector2( 203.001, 51.0004 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+
+[node name="money" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 37.0
+margin_right = 62.0
+margin_bottom = 51.0
+rect_scale = Vector2( 3, 3 )
+text = "1"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="old man says-1png" type="Sprite" parent="."]
+position = Vector2( 589.8, 496.207 )
+scale = Vector2( 8.72056, 6.3424 )
+texture = ExtResource( 5 )
+flip_v = true
+
+[node name="Label" type="Label" parent="old man says-1png"]
+margin_left = -33.0
+margin_top = -7.0
+margin_right = 223.0
+margin_bottom = 45.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]

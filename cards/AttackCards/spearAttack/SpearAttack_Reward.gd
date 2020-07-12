@@ -2,6 +2,9 @@ extends TextureButton
 
 const DESCRIPTION : String = "Deal 3 of damage to the nearest enemy.\n And 1 of damage to the second nearest."
 
+var price : int = 0
+var card_name : String = "spearAttack"
+
 #This executes at the start of the scene
 func _ready():
 	$ColorRect.visible = true
@@ -22,5 +25,11 @@ func hovered() -> bool:
 	return false
 
 func _on_SpearAttackReward_pressed():
-	get_parent().add_to_deck("spearAttack")
-	queue_free()
+	if price == 0:
+		get_parent().add_to_deck(card_name)
+		queue_free()
+	else:
+		if get_parent().get_node("SkelBunny").money >= price:
+			get_parent().add_to_deck(card_name, price)
+			get_parent().select_cards.erase(self)
+			queue_free()

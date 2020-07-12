@@ -28,6 +28,7 @@ animations = [ {
 
 [node name="enemiesHeart" type="AnimatedSprite"]
 frames = SubResource( 5 )
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="."]

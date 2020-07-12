@@ -4,17 +4,18 @@
 [ext_resource path="res://enemies/Damage/damage.gd" type="Script" id=2]
 
 [node name="damage" type="Sprite"]
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 2.4, 2.4 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = -2.73742
-margin_top = -3.0
-margin_right = 5.26258
-margin_bottom = 11.0
+margin_left = -20.9308
+margin_top = -2.9308
+margin_right = 82.0692
+margin_bottom = 11.0692
 rect_scale = Vector2( 0.4, 0.4 )
 text = "3"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

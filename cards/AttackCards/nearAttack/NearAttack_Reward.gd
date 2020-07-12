@@ -2,6 +2,9 @@ extends TextureButton
 
 const DESCRIPTION : String = "Deal 5 of damage to the enemy in tile2"
 
+var price : int = 0
+var card_name : String = "nearAttack"
+
 #This executes at the start of the scene
 func _ready():
 	$ColorRect.visible = true
@@ -22,5 +25,11 @@ func hovered() -> bool:
 	return false
 
 func _on_NearAttackReward_pressed():
-	get_parent().add_to_deck("nearAttack")
-	queue_free()
+	if price == 0:
+		get_parent().add_to_deck(card_name)
+		queue_free()
+	else:
+		if get_parent().get_node("SkelBunny").money >= price:
+			get_parent().add_to_deck(card_name, price)
+			get_parent().select_cards.erase(self)
+			queue_free()

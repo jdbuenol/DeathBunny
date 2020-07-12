@@ -47,6 +47,7 @@ func take_damage(damage : int):
 	hp -= damage
 	$enemiesHeart/Label.text = String(hp)
 	var damage_sign : Sprite = DAMAGE.instance()
-	add_child(damage_sign)
+	get_parent().add_child(damage_sign)
 	damage_sign.get_node("Label").text = String(damage)
+	damage_sign.global_position = global_position
 	damage_sign.global_position.y -= 100

@@ -44,8 +44,8 @@ func _ready():
 	update_current_level()
 	
 	#Updating labels
-	$"Healt_points-1png/Label".text = String($SkelBunny.hp)
-	$EnergyOrb/Label.text = String($SkelBunny.max_energy)
+	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)
+	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 	$"coin-label".text = String($SkelBunny.money)
 	
 	#Adding enemies
@@ -110,7 +110,7 @@ func start_turn():
 	battle_hand = []
 	var already_in_hand : Array = []
 	$SkelBunny.energy = $SkelBunny.max_energy
-	$EnergyOrb/Label.text = String($SkelBunny.energy)
+	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 	var x : int = int(rand_range(0, battle_deck.size()))
 	if battle_deck.size() <= 5:
 		for card in battle_deck:
@@ -213,7 +213,7 @@ func _physics_process(_delta):
 #This executes when the player select an attack card
 func attack(type : String, damage : int, energy : int):
 	$SkelBunny.energy -= energy
-	$EnergyOrb/Label.text = String($SkelBunny.energy)
+	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 	#If the target is the nearest enemy
 	if type == "direct":
 		var enemy : AnimatedSprite = get_nearest_enemy()
@@ -234,10 +234,11 @@ func attack(type : String, damage : int, energy : int):
 		enemy.take_damage(damage)
 		if enemies.size() >= 2:
 			var second_enemy : AnimatedSprite = second_nearest_enemy()
-			second_enemy.take_damage(int(damage / 2.0))
-			if second_enemy.hp <= 0:
-				enemies.erase(second_enemy)
-				second_enemy.death()
+			if second_enemy != null:
+				second_enemy.take_damage(int(damage / 2.0))
+				if second_enemy.hp <= 0:
+					enemies.erase(second_enemy)
+					second_enemy.death()
 		if enemy.hp <= 0:
 			enemy.death()
 			enemies.erase(enemy)

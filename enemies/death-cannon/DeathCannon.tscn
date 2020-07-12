@@ -24,7 +24,7 @@ script = ExtResource( 2 )
 [node name="enemiesHeart" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 14 )
 scale = Vector2( 0.5, 0.5 )
-frame = 1
+frame = 3
 
 [node name="timeLeft" type="Label" parent="."]
 margin_left = -4.10504
