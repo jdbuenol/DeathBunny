@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://shop/shopkeeper.png" type="Texture" id=1]
 [ext_resource path="res://shop/shop.gd" type="Script" id=2]
 [ext_resource path="res://skelbunny/money/coin-icon-1.png.png" type="Texture" id=3]
 [ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shop/old man says-1.png.png" type="Texture" id=5]
+[ext_resource path="res://shop/shop_sign-1.png.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -29,6 +30,11 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512.496, 302.222 )
+scale = Vector2( 63.7431, 37.4588 )
+texture = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1025.0
