@@ -5,6 +5,7 @@ var hp : int
 var max_hp : int
 var max_energy : int
 var money : int
+var shield : int
 
 #This executes at the start of the scene
 func _ready():
@@ -17,6 +18,7 @@ func _ready():
 	hp = int(hero.get_line().split(" ")[1])
 	max_energy = int(hero.get_line().split(" ")[1])
 	money = int(hero.get_line().split(" ")[1])
+	shield = int(hero.get_line().split(" ")[1])
 	energy = max_energy
 	hero.close()
 	play("Idle")
@@ -27,6 +29,14 @@ func death():
 
 #This executes when you suffer damage
 func take_damage(damage : int):
+	if shield >= damage:
+		shield -= damage
+		get_parent().get_node("Healt_points-1png/Label2").text = String(shield)
+		return
+	else:
+		shield = 0
+		damage -= shield
+		get_parent().get_node("Healt_points-1png/Label2").text = String(shield)
 	hp -= damage
 	get_parent().get_node("Healt_points-1png/Label").text = String(hp) + "/" + String(max_hp)
 	if hp <= 0:

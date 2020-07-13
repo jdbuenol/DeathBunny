@@ -21,11 +21,14 @@ const SPEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/spearAttack/
 
 #Upgrades to sell
 const HEALTH_UPGRADE : PackedScene = preload("res://shop/upgrades/healthUpgrade.tscn")
+const ENERGY_UPGRADE : PackedScene = preload("res://shop/upgrades/energyUpgrade.tscn")
+const HEAL : PackedScene = preload("res://shop/upgrades/heal.tscn")
+const SHIELD : PackedScene = preload("res://shop/upgrades/shieldUpgrade.tscn")
 
 var all_cards : Array = [BASIC_ATTACK, LONG_RANGE_ATTACK, BOMB_ATTACK, BONE_ATTACK, BOW_ARROW, LONG_SWORD, NEAR_ATTACK, 
 SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK]
 var select_cards : Array = []
-var all_upgrades : Array = [HEALTH_UPGRADE]
+var all_upgrades : Array = [HEALTH_UPGRADE, ENERGY_UPGRADE, HEAL, SHIELD]
 
 var old_man_phrases : Array = ["Its dangerous to go alone, take these.", "My little roguelike #2.", 
 "Good luck in this run.", "Have you participated in a jam?", "Sometimes i see death people.",
@@ -85,23 +88,24 @@ func set_cards():
 		card_cost.global_position = $Position2D.global_position
 		card_cost.global_position.y += 185
 		card_cost.global_position.x += 65
-		$Position2D.global_position.x += 100
+		$Position2D.global_position.x += 150
 		select_cards.append(card)
 
 #upgrades on sale
 func set_upgrades():
 	randomize()
-	var upgrade : TextureButton = all_upgrades[int(rand_range(0, all_upgrades.size()))].instance()
-	add_child(upgrade)
-	upgrade.rect_global_position = $Position2D2.global_position
-	var upgrade_cost : Sprite = CARD_COST.instance()
-	upgrade_cost.get_node("Label").text = String(upgrade.price)
-	add_child(upgrade_cost)
-	upgrade_cost.global_position = $Position2D2.global_position
-	upgrade_cost.global_position.y += 185
-	upgrade_cost.global_position.x += 80
-	$Position2D2.global_position.x += 100
-	select_cards.append(upgrade)
+	for _x in range(3):
+		var upgrade : TextureButton = all_upgrades[int(rand_range(0, all_upgrades.size()))].instance()
+		add_child(upgrade)
+		upgrade.rect_global_position = $Position2D2.global_position
+		var upgrade_cost : Sprite = CARD_COST.instance()
+		upgrade_cost.get_node("Label").text = String(upgrade.price)
+		add_child(upgrade_cost)
+		upgrade_cost.global_position = $Position2D2.global_position
+		upgrade_cost.global_position.y += 185
+		upgrade_cost.global_position.x += 80
+		$Position2D2.global_position.x += 170
+		select_cards.append(upgrade)
 
 #Continue with the adventure
 func _on_continue_pressed():
@@ -120,6 +124,7 @@ func _on_continue_pressed():
 	file_of_hero.store_line("current_hp " + String($SkelBunny.hp))
 	file_of_hero.store_line("max_energy " + String($SkelBunny.max_energy))
 	file_of_hero.store_line("money " + String($SkelBunny.money))
+	file_of_hero.store_line("shield " + String($SkelBunny.shield))
 	file_of_hero.close()
 	add_child(MAP.instance())
 
@@ -136,8 +141,29 @@ func add_to_deck(card : String, price : int):
 	$money.text = String($SkelBunny.money)
 
 #Upgrade skelbunny health
-func health_upgrade(upgrade_size : int, price : int):
-	$SkelBunny.max_hp += upgrade_size
-	$SkelBunny.hp += upgrade_size
-	$SkelBunny.money -= price
+func health_upgrade(upgrade : TextureButton):
+	$SkelBunny.max_hp += upgrade.upgrade_size
+	$SkelBunny.hp += upgrade.upgrade_size
+	skelbunny_pay(upgrade)
+
+#Upgrade skelbunny energy
+func energy_upgrade(upgrade : TextureButton):
+	$SkelBunny.max_energy += 1
+	skelbunny_pay(upgrade)
+
+#Heal to full life
+func heal(upgrade : TextureButton):
+	$SkelBunny.hp = $SkelBunny.max_hp
+	skelbunny_pay(upgrade)
+
+#Upgrade skelbunny shield
+func shield_upgrade(upgrade : TextureButton):
+	$SkelBunny.shield += upgrade.upgrade_size
+	skelbunny_pay(upgrade)
+
+#Function created to save lines of code
+func skelbunny_pay(upgrade : TextureButton):
+	$SkelBunny.money -= upgrade.price
+	select_cards.erase(upgrade)
+	upgrade.queue_free()
 	$money.text = String($SkelBunny.money)

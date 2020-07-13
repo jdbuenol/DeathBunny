@@ -60,7 +60,7 @@ position = Vector2( 29.665, 150 )
 position = Vector2( 523.666, 150 )
 
 [node name="SkelBunny" parent="." instance=ExtResource( 4 )]
-position = Vector2( -253.168, 278.519 )
+position = Vector2( -253.168, 280.026 )
 
 [node name="coin-icon-1png" type="Sprite" parent="."]
 position = Vector2( 203.001, 51.0004 )

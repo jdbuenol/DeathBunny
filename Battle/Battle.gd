@@ -47,6 +47,7 @@ func _ready():
 	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)
 	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 	$"coin-label".text = String($SkelBunny.money)
+	$"Healt_points-1png/Label2".text = String($SkelBunny.shield)
 	
 	#Adding enemies
 	if current_level == 10:
@@ -117,7 +118,7 @@ func start_turn():
 			battle_hand.append(card)
 			add_child(card)
 			card.rect_global_position = $DeckPosition.global_position
-			$DeckPosition.global_position.x += 110
+			$DeckPosition.global_position.x += 160
 	else:
 		while len(battle_hand) < 5:
 			while x in already_in_hand:
@@ -127,7 +128,7 @@ func start_turn():
 			battle_hand.append(current_card)
 			add_child(current_card)
 			current_card.rect_global_position = $DeckPosition.global_position
-			$DeckPosition.global_position.x += 110
+			$DeckPosition.global_position.x += 160
 	$DeckPosition.global_position.x = 14.964
 
 #This function return the nearest enemy
@@ -307,7 +308,11 @@ func end_fight():
 	file_of_hero.store_line("max_hp " + String($SkelBunny.max_hp))
 	file_of_hero.store_line("current_hp " + String($SkelBunny.hp))
 	file_of_hero.store_line("max_energy " + String($SkelBunny.max_energy))
-	file_of_hero.store_line("money " + String(int($"coin-label".text) +max_enemies_num * int(rand_range(0, current_level + 1))))
+	for x in range(max_enemies_num):
+		$SkelBunny.money += int(rand_range(0, current_level + 1))
+	$"coin-label".text = String($SkelBunny.money)
+	file_of_hero.store_line("money " + String($SkelBunny.money))
+	file_of_hero.store_line("shield " + String($SkelBunny.shield))
 	file_of_hero.close()
 
 	add_child(REWARD_SCREEN.instance())

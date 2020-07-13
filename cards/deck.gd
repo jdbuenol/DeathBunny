@@ -21,6 +21,8 @@ var all_cards : Dictionary = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
+	$Sprite.scale.x *= 2
+	$Sprite.scale.y *= 2
 	#Checking the cards in the deck
 	if not deck.file_exists("user://deck.save"):
 		return

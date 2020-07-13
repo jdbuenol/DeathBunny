@@ -2,17 +2,14 @@ extends TextureButton
 
 const DESCRIPTION : String = ""
 
-var description : String = ""
-var upgrade_size : int
+var description : String = "Heal to full life"
 var price : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	modulate = Color(0.7, 0.7, 0.7, 1)
 	randomize()
-	upgrade_size = int(rand_range(1, 4))
-	description = "Max hp +" + String(upgrade_size)
-	price = int(rand_range(40, 60)) * upgrade_size
+	price = int(rand_range(1, get_parent().current_level)) * (get_parent().get_node("SkelBunny").max_hp - get_parent().get_node("SkelBunny").hp)
 
 #This says if you are hovering the card or not
 func hovered() -> bool:
@@ -29,7 +26,7 @@ func _physics_process(_delta):
 	else:
 		modulate = Color(0.7, 0.7, 0.7, 1)
 
-#This executes when you select this upgrade
-func _on_healthUpgrade_pressed():
+#This executes if you select this upgrade
+func _on_heal_pressed():
 	if get_parent().get_node("SkelBunny").money >= price:
-		get_parent().health_upgrade(self)
+		get_parent().heal(self)

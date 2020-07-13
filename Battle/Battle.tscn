@@ -117,6 +117,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label2" type="Label" parent="Healt_points-1png"]
+margin_left = -6.10627
+margin_top = 2.19579
+margin_right = 33.8937
+margin_bottom = 54.1958
+rect_scale = Vector2( 0.3, 0.3 )
+custom_colors/font_color = Color( 0.4, 0.329412, 0.329412, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="enemyDelay" type="Timer" parent="."]
 one_shot = true
 

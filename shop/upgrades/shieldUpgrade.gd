@@ -11,8 +11,8 @@ func _ready():
 	modulate = Color(0.7, 0.7, 0.7, 1)
 	randomize()
 	upgrade_size = int(rand_range(1, 4))
-	description = "Max hp +" + String(upgrade_size)
-	price = int(rand_range(40, 60)) * upgrade_size
+	description = "Shield +" + String(upgrade_size)
+	price = int(rand_range(20, 30)) * upgrade_size
 
 #This says if you are hovering the card or not
 func hovered() -> bool:
@@ -29,7 +29,7 @@ func _physics_process(_delta):
 	else:
 		modulate = Color(0.7, 0.7, 0.7, 1)
 
-#This executes when you select this upgrade
-func _on_healthUpgrade_pressed():
+#This executes when you choose this upgrade
+func _on_shieldUpgrade_pressed():
 	if get_parent().get_node("SkelBunny").money >= price:
-		get_parent().health_upgrade(self)
+		get_parent().shield_upgrade(self)
