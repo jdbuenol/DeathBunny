@@ -39,7 +39,7 @@ texture = ExtResource( 6 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1025.0
 margin_bottom = 600.0
-color = Color( 0, 0, 0, 0.607843 )
+color = Color( 0, 0, 0, 0.858824 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

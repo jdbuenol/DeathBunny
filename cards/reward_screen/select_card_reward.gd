@@ -10,17 +10,28 @@ const NEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/nearAttack/Ne
 const LONG_RANGE_ATTACK : PackedScene = preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack_Reward.tscn")
 const SACRIFICE_DAGGER : PackedScene = preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger_Reward.tscn")
 const SNIPE_ATTACK : PackedScene = preload("res://cards/AttackCards/snipeAttack/SnipeAttack_Reward.tscn")
+const GOLDEN_BOMB : PackedScene = preload("res://cards/AttackCards/goldenBomb/GoldenBomb_Reward.tscn")
+const GOLDEN_BONE : PackedScene = preload("res://cards/AttackCards/goldenBone/GoldenBone_Reward.tscn")
+const GOLDEN_CROSS : PackedScene = preload("res://cards/AttackCards/goldenCross/GoldenCross_Reward.tscn")
+const GOLDEN_SWORD : PackedScene = preload("res://cards/AttackCards/goldenSword/GoldenSword_Reward.tscn")
+const GOLDEN_SPEAR : PackedScene = preload("res://cards/AttackCards/goldenSpear/GoldenSpear_Reward.tscn")
 
 var type_of_rewards : String = "common"
 
 var common_cards : Array = [BASIC_ATTACK, BOW_ARROW, SPEAR_ATTACK, LONG_SWORD, BOMB_ATTACK, BONE_ATTACK, NEAR_ATTACK,
 LONG_RANGE_ATTACK, SACRIFICE_DAGGER, SNIPE_ATTACK]
+var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR]
 var select_cards : Array = []
 
 # This executes at the start of every frame
 func _ready():
+	randomize()
 	for x in range(1, 4):
-		var current_card : TextureButton = common_cards[int(rand_range(0, common_cards.size()))].instance()
+		var current_card : TextureButton
+		if randf() > 0.1:
+			current_card = common_cards[int(rand_range(0, common_cards.size()))].instance()
+		else:
+			current_card = rare_cards[int(rand_range(0, rare_cards.size()))].instance()
 		add_child(current_card)
 		select_cards.append(current_card)
 		current_card.rect_global_position = get_node("Position2D" + str(x)).global_position

@@ -15,14 +15,19 @@ var all_cards : Dictionary = {
 	"nearAttack" : preload("res://cards/AttackCards/nearAttack/NearAttack_View.tscn"),
 	"sacrificeDagger" : preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger_View.tscn"),
 	"snipeAttack" : preload("res://cards/AttackCards/snipeAttack/SnipeAttack_View.tscn"),
-	"spearAttack" : preload("res://cards/AttackCards/spearAttack/SpearAttack_View.tscn")
+	"spearAttack" : preload("res://cards/AttackCards/spearAttack/SpearAttack_View.tscn"),
+	"goldenBomb" : preload("res://cards/AttackCards/goldenBomb/GoldenBomb_View.tscn"),
+	"goldenBone" : preload("res://cards/AttackCards/goldenBone/GoldenBone_View.tscn"),
+	"goldenCross" : preload("res://cards/AttackCards/goldenCross/GoldenCross_View.tscn"),
+	"goldenSword" : preload("res://cards/AttackCards/goldenSword/GoldenSword_View.tscn"),
+	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear_View.tscn")
 }
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$Sprite.scale.x *= 2
-	$Sprite.scale.y *= 2
+	$CanvasLayer/Sprite.scale.x *= 2
+	$CanvasLayer/Sprite.scale.y *= 2
 	#Checking the cards in the deck
 	if not deck.file_exists("user://deck.save"):
 		return
@@ -41,10 +46,10 @@ func _ready():
 	for card in cards:
 		var current_card : TextureButton = all_cards[card].instance()
 		cards_instances.append(current_card)
-		add_child(current_card)
+		$CanvasLayer.add_child(current_card)
 		current_card.rect_global_position = $cardsPos.global_position
 		var number : Label = Label.new()
-		add_child(number)
+		$CanvasLayer.add_child(number)
 		number.rect_global_position = $cardsPos.global_position
 		number.rect_global_position.y += 100
 		number.text = String(cards[card])
@@ -62,13 +67,13 @@ func _physics_process(_delta):
 		if card.is_hovered():
 			anyone_is_hovered = true
 	if !anyone_is_hovered:
-		$info.text = ""
-		$Sprite.texture = null
+		$CanvasLayer/info.text = ""
+		$CanvasLayer/Sprite.texture = null
 
 #When you hover a card
 func show_info(card : String, img : String):
-	$info.text = card
-	$Sprite.texture = load(img)
+	$CanvasLayer/info.text = card
+	$CanvasLayer/Sprite.texture = load(img)
 
 func _on_Button_pressed():
 	queue_free()

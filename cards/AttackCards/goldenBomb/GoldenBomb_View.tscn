@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://cards/AttackCards/goldenBomb/GoldenBomb_View.gd" type="Script" id=1]
+[ext_resource path="res://cards/AttackCards/goldenBomb/AttackCards-15.png.png" type="Texture" id=2]
+
+[node name="BombAttackView" type="TextureButton"]
+margin_right = 24.0
+margin_bottom = 32.0
+rect_scale = Vector2( 4, 4 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+texture_disabled = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

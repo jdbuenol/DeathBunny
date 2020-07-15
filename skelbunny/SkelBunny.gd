@@ -34,8 +34,8 @@ func take_damage(damage : int):
 		get_parent().get_node("Healt_points-1png/Label2").text = String(shield)
 		return
 	else:
-		shield = 0
 		damage -= shield
+		shield = 0
 		get_parent().get_node("Healt_points-1png/Label2").text = String(shield)
 	hp -= damage
 	get_parent().get_node("Healt_points-1png/Label").text = String(hp) + "/" + String(max_hp)

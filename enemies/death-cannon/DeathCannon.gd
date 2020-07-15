@@ -7,6 +7,7 @@ var initial_pos : int
 var current_pos : int
 var flying : bool = false
 var time_left : int
+var boss : bool = false
 
 #This executes at the start of the scene
 func _ready():
@@ -35,8 +36,9 @@ func make_a_move():
 func take_damage(damage : int):
 	hp -= damage
 	$enemiesHeart/Label.text = String(hp)
-	var damage_sign : Sprite = DAMAGE.instance()
-	get_parent().add_child(damage_sign)
-	damage_sign.get_node("Label").text = String(damage)
-	damage_sign.global_position = global_position
-	damage_sign.global_position.y -= 100
+	if damage >= 1:
+		var damage_sign : Sprite = DAMAGE.instance()
+		get_parent().add_child(damage_sign)
+		damage_sign.get_node("Label").text = String(damage)
+		damage_sign.global_position = global_position
+		damage_sign.global_position.y -= 100

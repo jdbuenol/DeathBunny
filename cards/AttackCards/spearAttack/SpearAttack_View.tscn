@@ -3,7 +3,7 @@
 [ext_resource path="res://cards/AttackCards/spearAttack/SpearAttack_View.gd" type="Script" id=1]
 [ext_resource path="res://cards/AttackCards/spearAttack/AttackCards-3.png.png" type="Texture" id=2]
 
-[node name="SpearAttackReward" type="TextureButton"]
+[node name="SpearAttackView" type="TextureButton"]
 margin_right = 24.0
 margin_bottom = 32.0
 rect_scale = Vector2( 4, 4 )

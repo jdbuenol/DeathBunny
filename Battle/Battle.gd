@@ -29,7 +29,12 @@ var all_cards : Dictionary = {
 	"nearAttack" : preload("res://cards/AttackCards/nearAttack/NearAttack.tscn"),
 	"longRangeAttack" : preload("res://cards/AttackCards/LongRangeAttack/LongRangeAttack.tscn"),
 	"sacrificeDagger" : preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger.tscn"),
-	"snipeAttack" : preload("res://cards/AttackCards/snipeAttack/SnipeAttack.tscn")
+	"snipeAttack" : preload("res://cards/AttackCards/snipeAttack/SnipeAttack.tscn"),
+	"goldenBomb" : preload("res://cards/AttackCards/goldenBomb/GoldenBomb.tscn"),
+	"goldenBone" : preload("res://cards/AttackCards/goldenBone/GoldenBone.tscn"),
+	"goldenCross" : preload("res://cards/AttackCards/goldenCross/GoldenCross.tscn"),
+	"goldenSword" : preload("res://cards/AttackCards/goldenSword/GoldenSword.tscn"),
+	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear.tscn")
 }
 
 var battle_deck : Array = []
@@ -43,6 +48,14 @@ func _ready():
 	#Checking current level
 	update_current_level()
 	
+	#Updating visuals
+	if current_level <= 10:
+		pass
+	elif current_level <= 20:
+		$SkelBunny.modulate = Color(1, 0.8, 0.8, 1)
+		$"Backgrounds-1png".texture = load("res://Battle/Background section 1/Backgrounds-2.png.png")
+		for x in range(1, 10):
+			get_node("tile" + String(x)).modulate = Color(1, 0.8, 0.8, 1)
 	#Updating labels
 	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)
 	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
@@ -57,22 +70,21 @@ func _ready():
 	else:
 		randomize()
 		if current_level < 10:
-			for x in range(6, 10):
-				if rand_range(0, 1) > 0.5:
-					if x == 9:
-						all_enemies.append(DEATH_CANNON)
-					var enemy : AnimatedSprite = all_enemies[int(rand_range(0, all_enemies.size()))].instance() 
-					enemies.append(enemy)
-					enemy.initial_pos = x
-			if enemies.size() == 0:
-				enemies.append(SKEL_ENEMIE.instance())
-				enemies[0].initial_pos = 9
+			instance_enemies(6)
+		elif current_level < 20:
+			instance_enemies(5)
 	for enemy in enemies:
 		add_child(enemy)
 		enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
 		enemy.global_position.y = 446.848
 		if "Flying" in enemy.name:
 			enemy.global_position.y -= 100
+		if current_level > 20:
+			pass
+		elif current_level > 10:
+			enemy.modulate = Color(1, 0.8, 0.8, 1)
+			enemy.hp *= 2
+			enemy.take_damage(0)
 	max_enemies_num = enemies.size()
 
 	#Loading deck
@@ -80,6 +92,19 @@ func _ready():
 	
 	#Start the battle
 	start_turn()
+
+#Instance enemies
+func instance_enemies(min_pos : int):
+	for x in range(min_pos, 10):
+		if rand_range(0, 1) > 0.5:
+			if x == 9:
+				all_enemies.append(DEATH_CANNON)
+			var enemy : AnimatedSprite = all_enemies[int(rand_range(0, all_enemies.size()))].instance()
+			enemies.append(enemy)
+			enemy.initial_pos = x
+	if enemies.size() == 0:
+		enemies.append(SKEL_ENEMIE.instance())
+		enemies[0].initial_pos = 9
 
 #Check current level
 func update_current_level():
@@ -171,8 +196,12 @@ func affect_tiles(type : String):
 		for x in range(2, max_pos + 1):
 			get_node("tile" + String(x)).modulate = Color(1, 0.265625, 0.265625, 1)
 	elif type == "nothing":
-		for x in range(1, 10):
-			get_node("tile" + String(x)).modulate = Color(1, 1, 1, 1)
+		if current_level <= 10:
+			for x in range(1, 10):
+				get_node("tile" + String(x)).modulate = Color(1, 1, 1, 1)
+		elif current_level <= 20:
+			for x in range(1, 10):
+				get_node("tile" + String(x)).modulate = Color(1, 0.8, 0.8, 1)
 	elif type == "piercing":
 		var max_pos : int = get_nearest_enemy().current_pos
 		for x in range(2, max_pos + 1):
@@ -276,6 +305,7 @@ func attack(type : String, damage : int, energy : int):
 		if enemy.hp <= 0:
 			enemy.death()
 			enemies.erase(enemy)
+	#If the target is in the tile 9
 	elif type == "snipe":
 		for enemy in enemies:
 			if enemy.current_pos == 9:
@@ -284,6 +314,16 @@ func attack(type : String, damage : int, energy : int):
 					enemy.death()
 					enemies.erase(enemy)
 				break
+	#Special attack
+	elif type == "cross":
+		var enemy : AnimatedSprite = get_nearest_enemy()
+		if enemy.boss:
+			enemy.take_damage(18)
+		else:
+			enemy.take_damage(6)
+		if enemy.hp <= 0:
+			enemy.death()
+			enemies.erase(enemy)
 	if enemies.size() == 0:
 		battle_ended = true
 		end_fight()

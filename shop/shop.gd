@@ -18,6 +18,12 @@ const NEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/nearAttack/Ne
 const SACRIFICE_DAGGER : PackedScene = preload("res://cards/AttackCards/sacrificeDagger/SacrificeDagger_Reward.tscn")
 const SNIPE_ATTACK : PackedScene = preload("res://cards/AttackCards/snipeAttack/SnipeAttack_Reward.tscn")
 const SPEAR_ATTACK : PackedScene = preload("res://cards/AttackCards/spearAttack/SpearAttack_Reward.tscn")
+const GOLDEN_BOMB : PackedScene = preload("res://cards/AttackCards/goldenBomb/GoldenBomb_Reward.tscn")
+const GOLDEN_BONE : PackedScene = preload("res://cards/AttackCards/goldenBone/GoldenBone_Reward.tscn")
+const GOLDEN_CROSS : PackedScene = preload("res://cards/AttackCards/goldenCross/GoldenCross_Reward.tscn")
+const GOLDEN_SWORD : PackedScene = preload("res://cards/AttackCards/goldenSword/GoldenSword_Reward.tscn")
+const GOLDEN_SPEAR : PackedScene = preload("res://cards/AttackCards/goldenSpear/GoldenSpear_Reward.tscn")
+
 
 #Upgrades to sell
 const HEALTH_UPGRADE : PackedScene = preload("res://shop/upgrades/healthUpgrade.tscn")
@@ -27,12 +33,14 @@ const SHIELD : PackedScene = preload("res://shop/upgrades/shieldUpgrade.tscn")
 
 var all_cards : Array = [BASIC_ATTACK, LONG_RANGE_ATTACK, BOMB_ATTACK, BONE_ATTACK, BOW_ARROW, LONG_SWORD, NEAR_ATTACK, 
 SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK]
+var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR]
 var select_cards : Array = []
 var all_upgrades : Array = [HEALTH_UPGRADE, ENERGY_UPGRADE, HEAL, SHIELD]
 
 var old_man_phrases : Array = ["Its dangerous to go alone, take these.", "My little roguelike #2.", 
 "Good luck in this run.", "Have you participated in a jam?", "Sometimes i see death people.",
-"Isn't it hot down here?", "Hover one card to see the description.", "Death is just the beginning."]
+"Isn't it hot down here?", "Hover one card to see the description.", "Death is just the beginning.",
+"You have met with a terrible fate.\nHaven't you?", "Spend money!", "Sometimes doing nothing is the best option"]
 
 var description : String
 
@@ -77,11 +85,17 @@ func _physics_process(_delta):
 #cards on sale
 func set_cards():
 	randomize()
-	for _x in range(3):
-		var card : TextureButton = all_cards[int(rand_range(0, all_cards.size()))].instance()
+	for x in range(3):
+		var card : TextureButton
+		if x == 2:
+			card = rare_cards[int(rand_range(0, rare_cards.size()))].instance()
+		else:
+			card = all_cards[int(rand_range(0, all_cards.size()))].instance()
 		add_child(card)
 		card.rect_global_position = $Position2D.global_position
 		card.price = int(rand_range(1, current_level)) * int(rand_range(1, current_level))
+		if x == 2:
+			card.price *= 2
 		var card_cost : Sprite = CARD_COST.instance()
 		card_cost.get_node("Label").text = String(card.price)
 		add_child(card_cost)
@@ -99,6 +113,10 @@ func set_upgrades():
 		add_child(upgrade)
 		upgrade.rect_global_position = $Position2D2.global_position
 		var upgrade_cost : Sprite = CARD_COST.instance()
+		if current_level > 20:
+			upgrade.price *= 1.5
+		elif current_level > 10:
+			upgrade.price *= 1.25
 		upgrade_cost.get_node("Label").text = String(upgrade.price)
 		add_child(upgrade_cost)
 		upgrade_cost.global_position = $Position2D2.global_position

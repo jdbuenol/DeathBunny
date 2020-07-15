@@ -33,6 +33,10 @@ func _ready():
 	map_file.open("user://map.save", File.READ)
 	map = map_file.get_line() + get_parent().MARK_IN_MAP
 	map_file.close()
+	
+	#Check if new world
+	if current_level == 10:
+		map = "S"
 	#update the map with new information
 # warning-ignore:return_value_discarded
 	map_file.open("user://map.save", File.WRITE)
@@ -42,7 +46,10 @@ func _ready():
 
 #instance the sprites of the path taken
 func draw_path():
-	for x in range(0, current_level + 1):
+	var n : int = current_level + 1
+	while n > 10:
+		n -= 10
+	for x in range(0, n):
 		var button : TextureButton = symbols[map[x]].instance()
 		get_parent().add_child(button)
 		button.rect_global_position = get_node("Position2D" + String(x)).global_position
@@ -53,10 +60,9 @@ func draw_path():
 #Instance the buttons for the next level
 func draw_next_level():
 	var n : int = current_level + 1
-	if n == 11:
-# warning-ignore:return_value_discarded
-		get_tree().change_scene("res://winscene/victory.tscn")
-	elif n == 10:
+	while n > 10:
+		n -= 10
+	if n == 10:
 		var button : TextureButton = BOSS_ICON.instance()
 		get_parent().add_child(button)
 		button.rect_global_position = get_node("Position2D" + String(n)).global_position
@@ -79,6 +85,8 @@ func draw_next_level():
 #Instance the buttons for the next level forks
 func draw_forks(pos1 : float, pos2 : float):
 	var n : int = current_level + 1
+	while n > 10:
+		n -= 10
 	var button1 : TextureButton = forks[int(rand_range(0, forks.size()))].instance()
 	var button2 : TextureButton = forks[int(rand_range(0, forks.size()))].instance()
 	get_parent().add_child(button1)
