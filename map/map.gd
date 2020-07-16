@@ -9,16 +9,18 @@ const SHOP_ICON : PackedScene = preload("res://map/shop_icon.tscn")
 const HEALTH_ICON : PackedScene = preload("res://map/health_icon.tscn")
 const EVENT_ICON : PackedScene = preload("res://map/event_icon.tscn")
 const BOSS_ICON : PackedScene = preload("res://map/boss_icon.tscn")
+const JOB_ICON : PackedScene = preload("res://map/job_icon.tscn")
 
 var symbols : Dictionary = {
 	"S" : START_ARROW,
 	"E" : SKULL_ENEMY,
 	"M" : SHOP_ICON,
 	"V" : EVENT_ICON,
-	"H" : HEALTH_ICON
+	"H" : HEALTH_ICON,
+	"J" : JOB_ICON
 }
 
-var forks : Array = [SHOP_ICON, HEALTH_ICON, EVENT_ICON]
+var forks : Array = [SHOP_ICON, HEALTH_ICON, EVENT_ICON, JOB_ICON]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -95,3 +97,8 @@ func draw_forks(pos1 : float, pos2 : float):
 	button2.rect_global_position = get_node("Position2D"+String(n)).global_position
 	button1.rect_global_position.y = pos1
 	button2.rect_global_position.y = pos2
+
+#Show the info of the hoveres button
+func show_info(desc : String, img : String):
+	$Sprite.texture = load(img)
+	$Label2.text = desc

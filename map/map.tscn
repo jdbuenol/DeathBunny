@@ -61,3 +61,20 @@ text = "SELECT NEXT LEVEL"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 240, 480 )
+scale = Vector2( 3, 3 )
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 288.501
+margin_top = 392.669
+margin_right = 612.501
+margin_bottom = 479.669
+rect_scale = Vector2( 2, 2 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

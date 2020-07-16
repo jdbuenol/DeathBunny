@@ -56,6 +56,11 @@ func _ready():
 		$"Backgrounds-1png".texture = load("res://Battle/Background section 1/Backgrounds-2.png.png")
 		for x in range(1, 10):
 			get_node("tile" + String(x)).modulate = Color(1, 0.8, 0.8, 1)
+	elif current_level <= 30:
+		$SkelBunny.modulate = Color(0.8, 0.8, 1, 1)
+		$"Backgrounds-1png".texture = load("res://Battle/Background section 1/Backgrounds-3.png.png")
+		for x in range(1, 10):
+			get_node("tile" + String(x)).modulate = Color(0.8, 0.8, 1, 1)
 	#Updating labels
 	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)
 	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
@@ -73,6 +78,8 @@ func _ready():
 			instance_enemies(6)
 		elif current_level < 20:
 			instance_enemies(5)
+		elif current_level < 30:
+			instance_enemies(4)
 	for enemy in enemies:
 		add_child(enemy)
 		enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
@@ -80,7 +87,9 @@ func _ready():
 		if "Flying" in enemy.name:
 			enemy.global_position.y -= 100
 		if current_level > 20:
-			pass
+			enemy.modulate = Color(0.8, 0.8, 1, 1)
+			enemy.hp *= 3
+			enemy.take_damage(0)
 		elif current_level > 10:
 			enemy.modulate = Color(1, 0.8, 0.8, 1)
 			enemy.hp *= 2
@@ -201,7 +210,10 @@ func affect_tiles(type : String):
 				get_node("tile" + String(x)).modulate = Color(1, 1, 1, 1)
 		elif current_level <= 20:
 			for x in range(1, 10):
-				get_node("tile" + String(x)).modulate = Color(1, 0.8, 0.8, 1)
+				get_node("tile" + String(x)).modulate = Color(1, 0.7, 0.7, 1)
+		elif current_level <= 30:
+			for x in range(1, 10):
+				get_node("tile" + String(x)).modulate = Color(0.7, 0.7, 1, 1)
 	elif type == "piercing":
 		var max_pos : int = get_nearest_enemy().current_pos
 		for x in range(2, max_pos + 1):
@@ -320,7 +332,7 @@ func attack(type : String, damage : int, energy : int):
 		if enemy.boss:
 			enemy.take_damage(18)
 		else:
-			enemy.take_damage(6)
+			enemy.take_damage(9)
 		if enemy.hp <= 0:
 			enemy.death()
 			enemies.erase(enemy)

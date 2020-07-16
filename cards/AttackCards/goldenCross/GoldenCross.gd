@@ -3,7 +3,7 @@ extends TextureButton
 const EFFECT_ON_TILES : String = "direct"
 const TYPE : String = "attack"
 const DAMAGE : int = 6
-const ENERGY : int = 1
+const ENERGY : int = 2
 
 #This executes at the start of the scene
 func _ready():
