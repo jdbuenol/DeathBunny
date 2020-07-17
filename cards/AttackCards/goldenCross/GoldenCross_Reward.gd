@@ -7,6 +7,7 @@ var price : int = 0
 
 #This executes at the start of the scene
 func _ready():
+	$Sprite/Label.text = "2"
 	$ColorRect.visible = true
 
 #This executes every frame

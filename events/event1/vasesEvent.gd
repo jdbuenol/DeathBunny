@@ -55,10 +55,10 @@ func _on_Button1_pressed():
 func bad_choice():
 	n = 0
 	if $SkelBunny.money > 100:
-		label_text = "You broke the cursed vase. In revenge, a ghost stealth a great part of your money."
+		label_text = "You broke the cursed vase. In revenge, a ghost stole a great part of your money."
 		$SkelBunny.money -= 100
 	else:
-		label_text = "You broke the cursed vase. In revenge, a ghost stealth all your money."
+		label_text = "You broke the cursed vase. In revenge, a ghost stole all your money."
 		$SkelBunny.money = 0
 	$Timer2.start()
 

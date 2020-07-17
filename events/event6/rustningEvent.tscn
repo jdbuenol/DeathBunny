@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://events/event6/altars-4.png.png" type="Texture" id=1]
+[ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=2]
+[ext_resource path="res://events/event6/rustningEvent.gd" type="Script" id=3]
+
+[node name="rustningEvent" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="altars-4png" type="Sprite" parent="."]
+position = Vector2( 512, 300 )
+scale = Vector2( 64, 37.5 )
+texture = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.670588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 133.0
+margin_top = 39.0
+margin_right = 386.0
+margin_bottom = 178.0
+rect_scale = Vector2( 3, 3 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 335.0
+margin_top = 457.0
+margin_right = 690.0
+margin_bottom = 567.0
+text = "CONTINUE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 334.822
+margin_top = 457.0
+margin_right = 689.822
+margin_bottom = 508.0
+text = "MAKE AN OFFER! (Lose 25 coins and gain 1 of armor)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 439.53
+margin_top = 527.927
+margin_right = 572.53
+margin_bottom = 566.927
+text = "Ignore the altar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkelBunny" parent="." instance=ExtResource( 2 )]
+position = Vector2( -133.928, 310.246 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.05
+[connection signal="pressed" from="Button3" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

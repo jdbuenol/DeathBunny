@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=1]
+[ext_resource path="res://events/event7/altars-5.png.png" type="Texture" id=2]
+[ext_resource path="res://events/event7/bukviEvent.gd" type="Script" id=3]
+
+[node name="bukviEvent" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="altars-5png" type="Sprite" parent="."]
+position = Vector2( 511.998, 299.982 )
+scale = Vector2( 64.0002, 37.5022 )
+texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.670588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 194.0
+margin_top = 41.0
+margin_right = 405.0
+margin_bottom = 164.0
+rect_scale = Vector2( 3, 3 )
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 317.0
+margin_top = 452.0
+margin_right = 708.0
+margin_bottom = 558.0
+text = "CONTINUE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 316.603
+margin_top = 451.594
+margin_right = 707.603
+margin_bottom = 492.594
+text = "MAKE AN OFFER! (Lose 1 max hp get 1 random golden card)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 422.342
+margin_top = 516.878
+margin_right = 570.342
+margin_bottom = 557.878
+text = "Ignore the altar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkelBunny" parent="." instance=ExtResource( 1 )]
+position = Vector2( -176.899, 297.968 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+[connection signal="pressed" from="Button3" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

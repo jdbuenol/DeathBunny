@@ -5,7 +5,7 @@ var current_level : int = 0
 
 const MAP : PackedScene = preload("res://map/map.tscn")
 
-var label_text : String = "You have found an altar dedicated to Patreon, god of the money. Would you like to make a blood offer?"
+var label_text : String = "You have found an altar dedicated to avid, goddess of life. Would you like to make a monetary offer?"
 var n : int = 0
 
 #This executes at the start of the scene
@@ -14,12 +14,12 @@ func _ready():
 	$Button2.visible = false
 	$Button3.visible = false
 	update_current_level()
-	if current_level >= 21:
-		$Button.text = "MAKE AN OFFER! (lose 1 max hp and gain 300 coins)"
-	elif current_level >= 11:
-		$Button.text = "MAKE AN OFFER! (lose 1 max hp and gain 200 coins)"
+	if current_level < 10:
+		$Button.text = "MAKE AN OFFER! (Lose 30 coins and gain 1 max hp)"
+	elif current_level < 20:
+		$Button.text = "MAKE AN OFFER! (Lose 65 coins and gain 2 max hp)"
 	else:
-		$Button.text = "MAKE AN OFFER! (lose 1 max hp and gain 100 coins)"
+		$Button.text = "MAKE AN OFFER! (Lose 100 coins and gain 3 max hp)"
 	$Timer.start()
 
 #Update the current level variable
@@ -42,6 +42,36 @@ func _on_Timer_timeout():
 		$Label.text = label_text.substr(0, n)
 		$Timer.start()
 
+#Make the offer!
+func _on_Button_pressed():
+	$Button.queue_free()
+	$Button2.queue_free()
+	n = 0
+	var offer_made : bool = false
+	if current_level < 10:
+		if $SkelBunny.money >= 30:
+			offer_made = true
+			$SkelBunny.money -= 30
+			$SkelBunny.max_hp += 1
+			$SkelBunny.hp += 1
+	elif current_level < 20:
+		if $SkelBunny.money >= 65:
+			offer_made = true
+			$SkelBunny.money -= 65
+			$SkelBunny.max_hp += 2
+			$SkelBunny.hp += 2
+	else:
+		if $SkelBunny.money >= 100:
+			offer_made = true
+			$SkelBunny.money -= 100
+			$SkelBunny.max_hp += 3
+			$SkelBunny.hp += 3
+	if offer_made:
+		label_text = "After putting the coins in the altar they melted into a heart-shaped cookie that you proceed to eat. You have received avid's blessing"
+	else:
+		label_text = "You don't have enough money to make the offer. Better continue with your adventure"
+	$Timer2.start()
+
 #Continue with the adventure
 func _on_Button2_pressed():
 	#Update the current level file
@@ -63,31 +93,9 @@ func _on_Button2_pressed():
 	file_of_hero.close()
 	add_child(MAP.instance())
 
-#Make the sacrifice
-func _on_Button_pressed():
-	n = 0
-	$Button.queue_free()
-	$Button2.queue_free()
-	if $SkelBunny.max_hp >= 2:
-		$SkelBunny.max_hp -= 1
-		if $SkelBunny.hp > $SkelBunny.max_hp:
-			$SkelBunny.hp = $SkelBunny.max_hp
-		if current_level <= 10:
-			label_text = "After making the sacrifice the altar puffed and become one hundred coins."
-			$SkelBunny.money += 100
-		elif current_level <= 20:
-			label_text = "After making the sacrifice the altar puffed and become two hundred coins."
-			$SkelBunny.money += 200
-		else:
-			label_text = "After making the sacrifice the altar puffed and become three hundred coins."
-			$SkelBunny.money += 300
-	else:
-		label_text = "Sadly you don't have enough health points to make the offer. Better continue with your journey."
-	$Timer2.start()
-
 #Second text delay
 func _on_Timer2_timeout():
-	if n > label_text.length():
+	if n >= label_text.length():
 		$Button3.visible = true
 	else:
 		n += 1

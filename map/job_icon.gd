@@ -5,7 +5,8 @@ var img : String = "res://map/map_icons-7.png.png"
 
 #change current scene to job scene
 func _on_job_icon_pressed():
-	pass
+# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://job/JobPoint.tscn")
 
 #This executes every frame
 func _physics_process(_delta):

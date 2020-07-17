@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://job/wc-donalds-1.png.png" type="Texture" id=1]
+[ext_resource path="res://job/JobPoint.gd" type="Script" id=2]
+[ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=3]
+
+[node name="JobPoint" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wc-donalds-1png" type="Sprite" parent="."]
+position = Vector2( 511.99, 300.025 )
+scale = Vector2( 64.0012, 37.4969 )
+texture = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.627451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkelBunny" parent="." instance=ExtResource( 3 )]
+position = Vector2( -80.0814, 316.637 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 131.0
+margin_top = 45.0
+margin_right = 386.0
+margin_bottom = 190.0
+rect_scale = Vector2( 3, 3 )
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="Button" type="Button" parent="."]
+margin_left = 411.407
+margin_top = 506.46
+margin_right = 612.407
+margin_bottom = 570.46
+text = "CONTINUE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
