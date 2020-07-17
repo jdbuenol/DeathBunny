@@ -23,7 +23,14 @@ const GOLDEN_BONE : PackedScene = preload("res://cards/AttackCards/goldenBone/Go
 const GOLDEN_CROSS : PackedScene = preload("res://cards/AttackCards/goldenCross/GoldenCross_Reward.tscn")
 const GOLDEN_SWORD : PackedScene = preload("res://cards/AttackCards/goldenSword/GoldenSword_Reward.tscn")
 const GOLDEN_SPEAR : PackedScene = preload("res://cards/AttackCards/goldenSpear/GoldenSpear_Reward.tscn")
-
+const HAMMER_ATTACK : PackedScene = preload("res://cards/AttackCards/hammerAttack/HammerAttack_Reward.tscn")
+const GOLDEN_HAMMER : PackedScene = preload("res://cards/AttackCards/goldenHammer/GoldenHammer_Reward.tscn")
+const BASEBALL_BAT : PackedScene = preload("res://cards/AttackCards/baseballBat/BaseballBat_Reward.tscn")
+const BASIC_WIND : PackedScene = preload("res://cards/OtherCards/basicWind/BasicWind_Reward.tscn")
+const GOLDEN_WIND : PackedScene = preload("res://cards/OtherCards/goldenWind/GoldenWind_Reward.tscn")
+const GOLDEN_KIT : PackedScene = preload("res://cards/OtherCards/goldenKit/GoldenKit_Reward.tscn")
+const MED_KIT : PackedScene = preload("res://cards/OtherCards/medKit/MedKit_Reward.tscn")
+const TORNADO : PackedScene = preload("res://cards/OtherCards/tornado/Tornado_Reward.tscn")
 
 #Upgrades to sell
 const HEALTH_UPGRADE : PackedScene = preload("res://shop/upgrades/healthUpgrade.tscn")
@@ -32,8 +39,9 @@ const HEAL : PackedScene = preload("res://shop/upgrades/heal.tscn")
 const SHIELD : PackedScene = preload("res://shop/upgrades/shieldUpgrade.tscn")
 
 var all_cards : Array = [BASIC_ATTACK, LONG_RANGE_ATTACK, BOMB_ATTACK, BONE_ATTACK, BOW_ARROW, LONG_SWORD, NEAR_ATTACK, 
-SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK]
-var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR]
+SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK, HAMMER_ATTACK, BASEBALL_BAT, BASIC_WIND, MED_KIT, TORNADO]
+var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR, GOLDEN_HAMMER, GOLDEN_WIND,
+GOLDEN_KIT]
 var select_cards : Array = []
 var all_upgrades : Array = [HEALTH_UPGRADE, ENERGY_UPGRADE, HEAL, SHIELD]
 

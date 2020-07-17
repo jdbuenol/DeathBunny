@@ -42,3 +42,7 @@ func take_damage(damage : int):
 		damage_sign.get_node("Label").text = String(damage)
 		damage_sign.global_position = global_position
 		damage_sign.global_position.y -= 100
+
+#This executes when the enemy is pushed backwards
+func get_pushed(_power : int):
+	pass

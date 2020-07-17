@@ -34,7 +34,15 @@ var all_cards : Dictionary = {
 	"goldenBone" : preload("res://cards/AttackCards/goldenBone/GoldenBone.tscn"),
 	"goldenCross" : preload("res://cards/AttackCards/goldenCross/GoldenCross.tscn"),
 	"goldenSword" : preload("res://cards/AttackCards/goldenSword/GoldenSword.tscn"),
-	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear.tscn")
+	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear.tscn"),
+	"hammerAttack" : preload("res://cards/AttackCards/hammerAttack/HammerAttack.tscn"),
+	"goldenHammer" : preload("res://cards/AttackCards/goldenHammer/GoldenHammer.tscn"),
+	"baseballBat" : preload("res://cards/AttackCards/baseballBat/BaseballBat.tscn"),
+	"basicWind" : preload("res://cards/OtherCards/basicWind/BasicWind.tscn"),
+	"goldenWind" : preload("res://cards/OtherCards/goldenWind/GoldenWind.tscn"),
+	"medKit" : preload("res://cards/OtherCards/medKit/MedKit.tscn"),
+	"goldenKit" : preload("res://cards/OtherCards/goldenKit/GoldenKit.tscn"),
+	"tornado" : preload("res://cards/OtherCards/tornado/Tornado.tscn")
 }
 
 var battle_deck : Array = []
@@ -235,6 +243,17 @@ func affect_tiles(type : String):
 	elif type == "snipe":
 		$tile9.modulate = Color(1, 0.265625, 0.265625, 1)
 
+#This functions executes when you hover a push card
+#It will shadow the tiles affected by said card
+func affect_push(type : String):
+	if type == "direct":
+		var max_pos : int = get_nearest_enemy().current_pos
+		for x in range(2, max_pos + 1):
+			get_node("tile" + String(x)).modulate = Color(0.265625, 1, 0.265625, 1)
+	elif type == "all":
+		for x in range(2, 10):
+			get_node("tile" + String(x)).modulate = Color(0.265625, 1, 0.265625, 1)
+
 #This executes at the start of every frame
 func _physics_process(_delta):
 	if !battle_ended:
@@ -245,6 +264,9 @@ func _physics_process(_delta):
 				affect_tiles(card.EFFECT_ON_TILES)
 				tiles_affected = true
 				break
+			elif card.TYPE == "push" and card.hovered():
+				affect_push(card.EFFECT_ON_TILES)
+				tiles_affected = true
 		if !tiles_affected:
 			affect_tiles("nothing")
 	if $deckButton.is_hovered():
@@ -336,6 +358,9 @@ func attack(type : String, damage : int, energy : int):
 		if enemy.hp <= 0:
 			enemy.death()
 			enemies.erase(enemy)
+	#If there is not attack
+	elif type == "nothing":
+		pass
 	if enemies.size() == 0:
 		battle_ended = true
 		end_fight()
@@ -428,5 +453,24 @@ func add_two_skelenemies(pos : int):
 	enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
 	enemy.global_position.y = 446.848
 
+#See the deck
 func _on_deckButton_pressed():
 	add_child(DECK_SCREEN.instance())
+
+#Push the enemies
+func push(type : String, power : int):
+	#If the target is the nearest enemy
+	if type == "direct":
+		var enemy : AnimatedSprite = get_nearest_enemy()
+		enemy.get_pushed(power)
+	#If the target is everything
+	elif type == "all":
+		for enemy in enemies:
+			enemy.get_pushed(power)
+
+#Heal the player
+func heal_skelbunny(power : int):
+	$SkelBunny.hp += power
+	if $SkelBunny.hp > $SkelBunny.max_hp:
+		$SkelBunny.hp = $SkelBunny.max_hp
+	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)

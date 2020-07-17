@@ -20,7 +20,15 @@ var all_cards : Dictionary = {
 	"goldenBone" : preload("res://cards/AttackCards/goldenBone/GoldenBone_View.tscn"),
 	"goldenCross" : preload("res://cards/AttackCards/goldenCross/GoldenCross_View.tscn"),
 	"goldenSword" : preload("res://cards/AttackCards/goldenSword/GoldenSword_View.tscn"),
-	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear_View.tscn")
+	"goldenSpear" : preload("res://cards/AttackCards/goldenSpear/GoldenSpear_View.tscn"),
+	"hammerAttack" : preload("res://cards/AttackCards/hammerAttack/HammerAttack_View.tscn"),
+	"goldenHammer" : preload("res://cards/AttackCards/goldenHammer/GoldenHammer_View.tscn"),
+	"baseballBat" : preload("res://cards/AttackCards/baseballBat/BaseballBat_View.tscn"),
+	"basicWind" : preload("res://cards/OtherCards/basicWind/BasicWind_View.tscn"),
+	"goldenWind" : preload("res://cards/OtherCards/goldenWind/GoldenWind_View.tscn"),
+	"goldenKit" : preload("res://cards/OtherCards/goldenKit/GoldenKit_View.tscn"),
+	"medKit" : preload("res://cards/OtherCards/medKit/MedKit_View.tscn"),
+	"tornado" : preload("res://cards/OtherCards/tornado/Tornado_View.tscn")
 }
 
 # Called when the node enters the scene tree for the first time.

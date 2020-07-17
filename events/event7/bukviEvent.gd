@@ -8,7 +8,8 @@ const MAP : PackedScene = preload("res://map/map.tscn")
 var label_text : String = "You have found an altar dedicated to bukvi, god of the cards. Would you like to make a blood offer?"
 var n : int = 0
 
-var rare_cards : Array = ["goldenBomb", "goldenBone", "goldenCross", "goldenSpear", "goldenSword"]
+var rare_cards : Array = ["goldenBomb", "goldenBone", "goldenCross", "goldenSpear", "goldenSword", "goldenHammer",
+"goldenWind", "goldenKit"]
 var offer_made : bool = false
 
 #This executes at the start of the scene
