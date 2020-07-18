@@ -30,7 +30,9 @@ func _on_hammerAttack_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:
-		get_parent().push(EFFECT_ON_TILES, PUSH)
+		var control : int = get_parent().enemies.size()
 		get_parent().attack(EFFECT_ON_TILES, DAMAGE, ENERGY)
+		if control == get_parent().enemies.size():
+			get_parent().push(EFFECT_ON_TILES, PUSH)
 		get_parent().battle_hand.erase(self)
 		queue_free()

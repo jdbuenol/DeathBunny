@@ -24,6 +24,7 @@ func hovered() -> bool:
 			return true
 	return false
 
+#This executes if you select this card
 func _on_BasicAttack_pressed():
 	if price == 0:
 		get_parent().add_to_deck(card_name)

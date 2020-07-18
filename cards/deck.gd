@@ -28,7 +28,11 @@ var all_cards : Dictionary = {
 	"goldenWind" : preload("res://cards/OtherCards/goldenWind/GoldenWind_View.tscn"),
 	"goldenKit" : preload("res://cards/OtherCards/goldenKit/GoldenKit_View.tscn"),
 	"medKit" : preload("res://cards/OtherCards/medKit/MedKit_View.tscn"),
-	"tornado" : preload("res://cards/OtherCards/tornado/Tornado_View.tscn")
+	"tornado" : preload("res://cards/OtherCards/tornado/Tornado_View.tscn"),
+	"chargeEnergy" : preload("res://cards/OtherCards/chargeEnergy/ChargeEnergy_View.tscn"),
+	"goldenCharge" : preload("res://cards/OtherCards/goldenCharge/GoldenCharge_View.tscn"),
+	"axeAttack" : preload("res://cards/AttackCards/axeAttack/AxeAttack_View.tscn"),
+	"goldenAxe" : preload("res://cards/AttackCards/goldenAxe/GoldenAxe_View.tscn")
 }
 
 # Called when the node enters the scene tree for the first time.

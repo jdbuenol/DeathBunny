@@ -1,12 +1,11 @@
 extends TextureButton
 
-const TYPE : String = "heal"
-const ENERGY : int = 2
-const POWER : int = 1
+const TYPE : String = "charge"
+const ENERGY : int = 1
+const POWER : int = 2
 
 #This executes at the start of the scene
 func _ready():
-	$Sprite/Label.text = "2"
 	$ColorRect.visible = true
 
 #This executes every frame
@@ -25,11 +24,11 @@ func hovered() -> bool:
 	return false
 
 #This executes when the player select the card
-func _on_MedKit_pressed():
+func _on_GoldenCharge_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:
 		get_parent().attack("nothing", 0, ENERGY)
-		get_parent().heal_skelbunny(POWER)
+		get_parent().over_charge(POWER)
 		get_parent().battle_hand.erase(self)
 		queue_free()

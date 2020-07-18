@@ -29,6 +29,7 @@ func _on_GoldenKit_pressed():
 	if get_parent().get_node("SkelBunny").energy < ENERGY:
 		pass
 	else:
+		get_parent().attack("nothing", 0, ENERGY)
 		get_parent().heal_skelbunny(POWER)
 		get_parent().battle_hand.erase(self)
 		queue_free()

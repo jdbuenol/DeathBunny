@@ -31,6 +31,10 @@ const GOLDEN_WIND : PackedScene = preload("res://cards/OtherCards/goldenWind/Gol
 const GOLDEN_KIT : PackedScene = preload("res://cards/OtherCards/goldenKit/GoldenKit_Reward.tscn")
 const MED_KIT : PackedScene = preload("res://cards/OtherCards/medKit/MedKit_Reward.tscn")
 const TORNADO : PackedScene = preload("res://cards/OtherCards/tornado/Tornado_Reward.tscn")
+const GOLDEN_CHARGE : PackedScene = preload("res://cards/OtherCards/goldenCharge/GoldenCharge_Reward.tscn")
+const CHARGE_ENERGY : PackedScene = preload("res://cards/OtherCards/chargeEnergy/ChargeEnergy_Reward.tscn")
+const AXE_ATTACK : PackedScene = preload("res://cards/AttackCards/axeAttack/AxeAttack_Reward.tscn")
+const GOLDEN_AXE : PackedScene = preload("res://cards/AttackCards/goldenAxe/GoldenAxe_Reward.tscn")
 
 #Upgrades to sell
 const HEALTH_UPGRADE : PackedScene = preload("res://shop/upgrades/healthUpgrade.tscn")
@@ -39,9 +43,12 @@ const HEAL : PackedScene = preload("res://shop/upgrades/heal.tscn")
 const SHIELD : PackedScene = preload("res://shop/upgrades/shieldUpgrade.tscn")
 
 var all_cards : Array = [BASIC_ATTACK, LONG_RANGE_ATTACK, BOMB_ATTACK, BONE_ATTACK, BOW_ARROW, LONG_SWORD, NEAR_ATTACK, 
-SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK, HAMMER_ATTACK, BASEBALL_BAT, BASIC_WIND, MED_KIT, TORNADO]
+SACRIFICE_DAGGER, SNIPE_ATTACK, SPEAR_ATTACK, HAMMER_ATTACK, BASEBALL_BAT, BASIC_WIND, MED_KIT, TORNADO, CHARGE_ENERGY,
+AXE_ATTACK]
+
 var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR, GOLDEN_HAMMER, GOLDEN_WIND,
-GOLDEN_KIT]
+GOLDEN_KIT, GOLDEN_CHARGE, GOLDEN_AXE]
+
 var select_cards : Array = []
 var all_upgrades : Array = [HEALTH_UPGRADE, ENERGY_UPGRADE, HEAL, SHIELD]
 

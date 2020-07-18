@@ -6,9 +6,11 @@ var max_hp : int
 var max_energy : int
 var money : int
 var shield : int
+var over_energy : int
 
 #This executes at the start of the scene
 func _ready():
+	over_energy = 0
 	var hero : File = File.new()
 	if not hero.file_exists("user://hero.save"):
 		return

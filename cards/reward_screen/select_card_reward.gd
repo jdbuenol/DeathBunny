@@ -16,6 +16,8 @@ const BASEBALL_BAT : PackedScene = preload("res://cards/AttackCards/baseballBat/
 const BASIC_WIND : PackedScene = preload("res://cards/OtherCards/basicWind/BasicWind_Reward.tscn")
 const MED_KIT : PackedScene = preload("res://cards/OtherCards/medKit/MedKit_Reward.tscn")
 const TORNADO : PackedScene = preload("res://cards/OtherCards/tornado/Tornado_Reward.tscn")
+const CHARGE_ENERGY : PackedScene = preload("res://cards/OtherCards/chargeEnergy/ChargeEnergy_Reward.tscn")
+const AXE_ATTACK : PackedScene = preload("res://cards/AttackCards/axeAttack/AxeAttack_Reward.tscn")
 
 #Golden cards
 const GOLDEN_BOMB : PackedScene = preload("res://cards/AttackCards/goldenBomb/GoldenBomb_Reward.tscn")
@@ -26,13 +28,16 @@ const GOLDEN_SPEAR : PackedScene = preload("res://cards/AttackCards/goldenSpear/
 const GOLDEN_HAMMER : PackedScene = preload("res://cards/AttackCards/goldenHammer/GoldenHammer_Reward.tscn")
 const GOLDEN_WIND : PackedScene = preload("res://cards/OtherCards/goldenWind/GoldenWind_Reward.tscn")
 const GOLDEN_KIT : PackedScene = preload("res://cards/OtherCards/goldenKit/GoldenKit_Reward.tscn")
+const GOLDEN_CHARGE : PackedScene = preload("res://cards/OtherCards/goldenCharge/GoldenCharge_Reward.tscn")
+const GOLDEN_AXE : PackedScene = preload("res://cards/AttackCards/goldenAxe/GoldenAxe_Reward.tscn")
 
 var type_of_rewards : String = "common"
 
 var common_cards : Array = [BASIC_ATTACK, BOW_ARROW, SPEAR_ATTACK, LONG_SWORD, BOMB_ATTACK, BONE_ATTACK, NEAR_ATTACK,
-LONG_RANGE_ATTACK, SACRIFICE_DAGGER, SNIPE_ATTACK, HAMMER_ATTACK, BASEBALL_BAT, BASIC_WIND, MED_KIT, TORNADO]
+LONG_RANGE_ATTACK, SACRIFICE_DAGGER, SNIPE_ATTACK, HAMMER_ATTACK, BASEBALL_BAT, BASIC_WIND, MED_KIT, TORNADO, CHARGE_ENERGY,
+AXE_ATTACK]
 var rare_cards : Array = [GOLDEN_BOMB, GOLDEN_BONE, GOLDEN_CROSS, GOLDEN_SWORD, GOLDEN_SPEAR, GOLDEN_HAMMER, GOLDEN_WIND,
-GOLDEN_KIT]
+GOLDEN_KIT, GOLDEN_CHARGE, GOLDEN_AXE]
 var select_cards : Array = []
 
 # This executes at the start of every frame

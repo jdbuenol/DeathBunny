@@ -42,7 +42,11 @@ var all_cards : Dictionary = {
 	"goldenWind" : preload("res://cards/OtherCards/goldenWind/GoldenWind.tscn"),
 	"medKit" : preload("res://cards/OtherCards/medKit/MedKit.tscn"),
 	"goldenKit" : preload("res://cards/OtherCards/goldenKit/GoldenKit.tscn"),
-	"tornado" : preload("res://cards/OtherCards/tornado/Tornado.tscn")
+	"tornado" : preload("res://cards/OtherCards/tornado/Tornado.tscn"),
+	"chargeEnergy" : preload("res://cards/OtherCards/chargeEnergy/ChargeEnergy.tscn"),
+	"goldenCharge" : preload("res://cards/OtherCards/goldenCharge/GoldenCharge.tscn"),
+	"axeAttack" : preload("res://cards/AttackCards/axeAttack/AxeAttack.tscn"),
+	"goldenAxe" : preload("res://cards/AttackCards/goldenAxe/GoldenAxe.tscn")
 }
 
 var battle_deck : Array = []
@@ -153,6 +157,8 @@ func start_turn():
 	battle_hand = []
 	var already_in_hand : Array = []
 	$SkelBunny.energy = $SkelBunny.max_energy
+	$SkelBunny.energy += $SkelBunny.over_energy
+	$SkelBunny.over_energy = 0
 	$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 	var x : int = int(rand_range(0, battle_deck.size()))
 	if battle_deck.size() <= 5:
@@ -320,9 +326,15 @@ func attack(type : String, damage : int, energy : int):
 	elif type == "all":
 		for enemy in enemies:
 			enemy.take_damage(damage)
-			if enemy.hp <= 0:
-				enemy.death()
-				enemies.erase(enemy)
+		while true:
+			var check_death : bool = true
+			for enemy in enemies:
+				if enemy.hp <= 0:
+					check_death = false
+					enemy.death()
+					enemies.erase(enemy)
+			if check_death:
+				break
 	#If the target is tile 1
 	elif type == "near":
 		for enemy in enemies:
@@ -356,6 +368,15 @@ func attack(type : String, damage : int, energy : int):
 		else:
 			enemy.take_damage(9)
 		if enemy.hp <= 0:
+			enemy.death()
+			enemies.erase(enemy)
+	#If the player recover energy after killing the enemy
+	elif type == "energy":
+		var enemy : AnimatedSprite = get_nearest_enemy()
+		enemy.take_damage(damage)
+		if enemy.hp <= 0:
+			$SkelBunny.energy += energy
+			$EnergyOrb/Label.text = String($SkelBunny.energy) + "/" + String($SkelBunny.max_energy)
 			enemy.death()
 			enemies.erase(enemy)
 	#If there is not attack
@@ -474,3 +495,7 @@ func heal_skelbunny(power : int):
 	if $SkelBunny.hp > $SkelBunny.max_hp:
 		$SkelBunny.hp = $SkelBunny.max_hp
 	$"Healt_points-1png/Label".text = String($SkelBunny.hp) + "/" + String($SkelBunny.max_hp)
+
+#Over charge
+func over_charge(power : int):
+	$SkelBunny.over_energy += power
