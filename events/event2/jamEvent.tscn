@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://events/event2/jam-1.png.png" type="Texture" id=1]
 [ext_resource path="res://events/event2/jamEvent.gd" type="Script" id=2]
 [ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=3]
+[ext_resource path="res://music/event.ogg" type="AudioStream" id=4]
 
 [node name="jamEvent" type="Control"]
 anchor_right = 1.0
@@ -58,5 +59,10 @@ one_shot = true
 
 [node name="SkelBunny" parent="." instance=ExtResource( 3 )]
 position = Vector2( -168.686, 227.182 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -7.0
+autoplay = true
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

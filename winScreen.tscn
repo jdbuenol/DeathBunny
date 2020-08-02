@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://skelbunny/skel-bunny.png" type="Texture" id=1]
+[ext_resource path="res://MainTitle/skull_title-1.png(1).png" type="Texture" id=2]
+[ext_resource path="res://winScreen.gd" type="Script" id=3]
+[ext_resource path="res://music/bu-a-ninjas-troll.ogg" type="AudioStream" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="winScreen" type="ColorRect"]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 150.837, 479.207 )
+scale = Vector2( 8, 8 )
+frames = SubResource( 3 )
+frame = 1
+playing = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = 250.346
+margin_top = 69.7893
+margin_right = 383.346
+margin_bottom = 116.789
+rect_scale = Vector2( 4, 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "CONGRATULATIONS!
+You defeated death,
+thanks for playing."
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="skull_title-1png(1)" type="Sprite" parent="."]
+position = Vector2( 209.18, 205.289 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="skull_title-1png(1)2" type="Sprite" parent="."]
+position = Vector2( 800, 205.289 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+flip_h = true
+
+[node name="Button" type="Button" parent="."]
+margin_left = 440.883
+margin_top = 415.207
+margin_right = 577.883
+margin_bottom = 452.207
+text = ":)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -7.0
+autoplay = true
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

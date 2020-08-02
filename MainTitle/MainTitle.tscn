@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://MainTitle/MainTitle.gd" type="Script" id=1]
+[ext_resource path="res://music/main title.ogg" type="AudioStream" id=2]
+[ext_resource path="res://MainTitle/skull_title-1.png(1).png" type="Texture" id=3]
+[ext_resource path="res://MainTitle/main title screen-1.png.png" type="Texture" id=4]
 
 [node name="MainTitle" type="Control"]
 anchor_right = 1.0
@@ -11,43 +14,80 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1026.0
-margin_bottom = 601.0
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="main title screen-1png" type="Sprite" parent="."]
+position = Vector2( 513.174, 300 )
+scale = Vector2( 9.27372, 6.25 )
+texture = ExtResource( 4 )
+
 [node name="Label" type="Label" parent="."]
-margin_left = 226.272
-margin_top = 66.482
-margin_right = 304.272
-margin_bottom = 80.482
+margin_left = 182.175
+margin_top = 29.9443
+margin_right = 260.175
+margin_bottom = 43.9443
 rect_scale = Vector2( 7, 7 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "DeathBunny"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="."]
-margin_left = 306.75
-margin_top = 159.79
-margin_right = 432.75
-margin_bottom = 173.79
+margin_left = 267.692
+margin_top = 127.944
+margin_right = 393.692
+margin_bottom = 141.944
 rect_scale = Vector2( 3, 3 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "DEFEAT THE DEATH!"
 
 [node name="Start" type="Button" parent="."]
-margin_left = 393.06
-margin_top = 236.769
-margin_right = 565.06
-margin_bottom = 273.769
+margin_left = 423.298
+margin_top = 375.36
+margin_right = 595.298
+margin_bottom = 412.36
 text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Button" parent="."]
-margin_left = 390.669
-margin_top = 317.499
-margin_right = 567.669
-margin_bottom = 355.499
+margin_left = 423.298
+margin_top = 452.311
+margin_right = 600.298
+margin_bottom = 490.311
 text = "EXIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -7.068
+autoplay = true
+
+[node name="skull_title-1png(1)" type="Sprite" parent="."]
+position = Vector2( 222.395, 169.944 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+
+[node name="skull_title-1png(1)2" type="Sprite" parent="."]
+position = Vector2( 692.346, 169.944 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="Label3" type="Label" parent="."]
+margin_top = 586.0
+margin_right = 434.0
+margin_bottom = 601.0
+text = "GAME MADE BY JDBUENOL FOR THE \"MY LITTLE ROGUELIKE JAM #2\""
 __meta__ = {
 "_edit_use_anchors_": false
 }

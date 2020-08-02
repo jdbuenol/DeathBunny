@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://shop/shopkeeper.png" type="Texture" id=1]
 [ext_resource path="res://shop/shop.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://skelbunny/SkelBunny.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shop/old man says-1.png.png" type="Texture" id=5]
 [ext_resource path="res://shop/shop_sign-1.png.png" type="Texture" id=6]
+[ext_resource path="res://music/shop.ogg" type="AudioStream" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -104,4 +105,9 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -7.0
+autoplay = true
 [connection signal="pressed" from="continue" to="." method="_on_continue_pressed"]

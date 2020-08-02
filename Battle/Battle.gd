@@ -57,9 +57,11 @@ var enemy_turn : int = 0
 
 #This executes at the start of the scene
 func _ready():
+	$end_turn.visible = false
+	
 	#Checking current level
 	update_current_level()
-	
+
 	#Updating visuals
 	if current_level <= 10:
 		pass
@@ -81,9 +83,13 @@ func _ready():
 	
 	#Adding enemies
 	if current_level == 10:
-		var enemy : AnimatedSprite = all_bosses[int(rand_range(0, all_bosses.size()))].instance()
-		enemy.initial_pos = 9
-		enemies.append(enemy)
+		instance_boss(9)
+	elif current_level == 20:
+		instance_boss(8)
+		instance_boss(9)
+	elif current_level == 30:
+		for x in range(7, 10):
+			instance_boss(x)
 	else:
 		randomize()
 		if current_level < 10:
@@ -107,12 +113,21 @@ func _ready():
 			enemy.hp *= 2
 			enemy.take_damage(0)
 	max_enemies_num = enemies.size()
-
-	#Loading deck
-	reset_deck()
+	
+	#Music
+	if current_level == 10 or current_level == 20 or current_level == 30:
+		$"boss fight".playing = true
+	else:
+		$battle.playing = true
 	
 	#Start the battle
 	start_turn()
+
+#Instance boss
+func instance_boss(pos : int):
+	var enemy : AnimatedSprite = all_bosses[0].instance()
+	enemy.initial_pos = pos
+	enemies.append(enemy)
 
 #Instance enemies
 func instance_enemies(min_pos : int):
@@ -153,6 +168,7 @@ func reset_deck():
 
 #This executes at the start of every turn
 func start_turn():
+	$end_turn.visible = true
 	reset_deck()
 	battle_hand = []
 	var already_in_hand : Array = []
@@ -364,7 +380,7 @@ func attack(type : String, damage : int, energy : int):
 	elif type == "cross":
 		var enemy : AnimatedSprite = get_nearest_enemy()
 		if enemy.boss:
-			enemy.take_damage(18)
+			enemy.take_damage(25)
 		else:
 			enemy.take_damage(9)
 		if enemy.hp <= 0:
@@ -388,7 +404,11 @@ func attack(type : String, damage : int, energy : int):
 
 #This executes when there is no more enemies
 func end_fight():
-	print("You did it, you won")
+	$soundDelay.start()
+	$battle.queue_free()
+	$"boss fight".queue_free()
+	$win.play()
+	
 	for card in battle_hand:
 		card.queue_free()
 	
@@ -412,8 +432,11 @@ func end_fight():
 	file_of_hero.store_line("money " + String($SkelBunny.money))
 	file_of_hero.store_line("shield " + String($SkelBunny.shield))
 	file_of_hero.close()
-
-	add_child(REWARD_SCREEN.instance())
+	if current_level == 30:
+# warning-ignore:return_value_discarded
+		get_tree().change_scene("res://winScreen.tscn")
+	else:
+		add_child(REWARD_SCREEN.instance())
 
 #This open the map to select the next level
 func open_map():
@@ -426,6 +449,11 @@ func hurt_skelbunny(damage : int):
 
 #This executes when skelbunny dies
 func game_over():
+	$soundDelay.start()
+	$"boss fight".queue_free()
+	$battle.queue_free()
+	$defeat.play()
+	$end_turn.visible = false
 	battle_ended = true
 	$end_turn.queue_free()
 	var game_over_button : Button = GAME_OVER_BUTTON.instance()
@@ -452,6 +480,7 @@ func _on_enemyDelay_timeout():
 
 #This executes when the player end his turn
 func _on_end_turn_pressed():
+	$end_turn.visible = false
 	for _x in range(0, battle_hand.size()):
 		battle_hand.pop_back().queue_free()
 	enemy_turn = 0
@@ -461,6 +490,12 @@ func add_two_skelenemies(pos : int):
 	var enemy : AnimatedSprite = SKEL_ENEMIE.instance()
 	enemies.append(enemy)
 	enemy.initial_pos = pos
+	if current_level <= 10:
+		pass
+	elif current_level <= 20:
+		enemy.modulate = Color(1, 0.8, 0.8, 1)
+	else:
+		enemy.modulate = Color(0.8, 0.8, 1, 1)
 	add_child(enemy)
 	enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
 	enemy.global_position.y = 446.848
@@ -471,6 +506,12 @@ func add_two_skelenemies(pos : int):
 	else:
 		enemy.initial_pos = pos + 1
 	add_child(enemy)
+	if current_level <= 10:
+		pass
+	elif current_level <= 20:
+		enemy.modulate = Color(1, 0.8, 0.8, 1)
+	else:
+		enemy.modulate = Color(0.8, 0.8, 1, 1)
 	enemy.global_position.x = 77.352 + 110 * (enemy.initial_pos - 1)
 	enemy.global_position.y = 446.848
 
@@ -499,3 +540,8 @@ func heal_skelbunny(power : int):
 #Over charge
 func over_charge(power : int):
 	$SkelBunny.over_energy += power
+
+#Stop the loop
+func _on_soundDelay_timeout():
+	$win.queue_free()
+	$defeat.queue_free()

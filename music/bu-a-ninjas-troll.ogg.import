@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bu-a-ninjas-troll.ogg-dfebc8fb04868b47fb5d7b8843cb5539.oggstr"
+
+[deps]
+
+source_file="res://music/bu-a-ninjas-troll.ogg"
+dest_files=[ "res://.import/bu-a-ninjas-troll.ogg-dfebc8fb04868b47fb5d7b8843cb5539.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
