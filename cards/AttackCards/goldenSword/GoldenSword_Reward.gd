@@ -1,6 +1,6 @@
 extends TextureButton
 
-const DESCRIPTION : String = "Deal 9 of damage to the nearest enemy"
+const DESCRIPTION : String = "Deal 9 damage to the nearest enemy"
 
 var card_name : String = "goldenSword"
 var price : int = 0

@@ -1,6 +1,6 @@
 extends TextureButton
 
-const DESCRIPTION : String = "Deal 1 of damage to the nearest enemy.\nThen push him away 3 tiles."
+const DESCRIPTION : String = "Deal 1 damage to the nearest enemy.\nThen push him away 3 tiles."
 
 var card_name : String = "baseballBat"
 var price : int = 0

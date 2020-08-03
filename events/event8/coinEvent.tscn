@@ -56,4 +56,9 @@ position = Vector2( -201.454, 316.384 )
 stream = ExtResource( 4 )
 volume_db = -7.0
 autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

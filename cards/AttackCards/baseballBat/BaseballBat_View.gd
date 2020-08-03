@@ -1,6 +1,6 @@
 extends TextureButton
 
-var info : String = "Deal 1 of damage to the nearest enemy.\nThen push him away 3 tiles."
+var info : String = "Deal 1 damage to the nearest enemy.\nThen push him away 3 tiles."
 var img : String = "res://cards/AttackCards/baseballBat/AttackCards-18.png.png"
 
 func _physics_process(_delta):

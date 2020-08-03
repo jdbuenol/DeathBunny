@@ -1,6 +1,6 @@
 extends TextureButton
 
-var info : String = "Deal 1 of damage to yourself.\nDeal 9 of damage to the nearest enemy"
+var info : String = "Deal 1 damage to yourself.\nDeal 9 damage to the nearest enemy"
 var img : String = "res://cards/AttackCards/sacrificeDagger/AttackCards-5.png.png"
 
 func _physics_process(_delta):

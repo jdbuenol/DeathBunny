@@ -1,6 +1,6 @@
 extends TextureButton
 
-var info : String = "Deal 10 of damage to ALL the enemies"
+var info : String = "Deal 10 damage to ALL the enemies"
 var img : String = "res://cards/AttackCards/goldenBomb/AttackCards-15.png.png"
 
 func _physics_process(_delta):
